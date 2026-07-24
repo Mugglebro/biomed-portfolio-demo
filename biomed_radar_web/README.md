@@ -53,6 +53,7 @@
 - `LOW_FIDELITY_WIREFRAME.md`：说明候选审核、日报编排、反馈学习和历史日报的低保真页面结构。
 - `DATA_ARCHITECTURE.md`：说明从 Excel 迁移到 SQLite 时建议采用的数据表和数据流。
 - `UI_REDESIGN_NOTES.md`：说明为什么撤掉装饰图，改为成熟 B 端工作台界面。
+- `BIOMED_RADAR_DESIGN_PROMPT.md`：把参考提示词转化成中文语境下的资讯雷达设计规范。
 
 ## 自审标准
 

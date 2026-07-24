@@ -147,6 +147,18 @@ function bindEvents() {
     renderList();
   });
 
+  document.querySelector(".reset-button").addEventListener("click", () => {
+    state.filter = "全部";
+    state.search = "";
+    state.verifyOnly = false;
+    nodes.searchInput.value = "";
+    nodes.verifyOnly.checked = false;
+    document.querySelectorAll(".filter-chip").forEach((chip) => chip.classList.remove("active"));
+    document.querySelector('[data-filter="全部"]').classList.add("active");
+    renderList();
+    toast("筛选条件已清除");
+  });
+
   document.querySelector("#resetBtn").addEventListener("click", () => {
     localStorage.removeItem("digestIds");
     localStorage.removeItem("radarReactions");
@@ -197,14 +209,18 @@ function renderList() {
     const row = document.createElement("article");
     row.className = `news-row ${item.id === state.selectedId ? "selected" : ""}`;
     row.innerHTML = `
-      <div class="news-title">
+      <input type="checkbox" ${state.digestIds.has(item.id) ? "checked" : ""} data-digest="${item.id}" aria-label="加入日报" />
+      <span class="row-id">${item.id.replace("CN-20260724-", "IR-")}</span>
+      <div class="title-cell">
+        <span class="badge ${getCategoryClass(item.category)}">${item.category}</span>
         <button type="button" data-select="${item.id}">${item.title}</button>
-        <small>${item.date} / ${item.source} / ${item.company || "未标注公司"}</small>
       </div>
-      <span class="tag ${item.risk === "需核验" ? "risk" : ""}">${item.category}</span>
-      <strong>${item.score}</strong>
+      <span>${item.source}</span>
+      <span class="badge ${getStatusClass(item.status)}">${item.status}</span>
+      <span class="badge ${item.risk === "需核验" ? "badge-risk" : "badge-good"}">${item.risk}</span>
+      <strong class="score-cell">${item.score}</strong>
       <button class="row-action ${state.digestIds.has(item.id) ? "added" : ""}" type="button" data-digest="${item.id}">
-        ${state.digestIds.has(item.id) ? "已加入" : "加入日报"}
+        ${state.digestIds.has(item.id) ? "移出" : "加入"}
       </button>
     `;
     nodes.newsList.appendChild(row);
@@ -225,6 +241,20 @@ function renderList() {
   });
 }
 
+function getCategoryClass(category) {
+  if (category === "BD授权出海" || category === "商业化医保集采") return "badge-bd";
+  if (category === "NMPA/CDE") return "badge-review";
+  if (category === "融资并购") return "badge-finance";
+  if (category === "上市公司公告") return "badge-announcement";
+  return "badge-low";
+}
+
+function getStatusClass(status) {
+  if (status === "建议推送" || status === "可发帖") return "badge-good";
+  if (status === "待确认") return "badge-risk";
+  return "badge-low";
+}
+
 function renderDetail() {
   const item = state.items.find((entry) => entry.id === state.selectedId);
   if (!item) {
@@ -236,10 +266,10 @@ function renderDetail() {
   nodes.detailView.innerHTML = `
     <h3>${item.title}</h3>
     <div class="detail-meta">
-      <span class="tag">${item.category}</span>
-      <span class="tag">${item.status}</span>
-      <span class="tag ${item.risk === "需核验" ? "risk" : ""}">${item.risk}</span>
-      <span class="tag">评分 ${item.score}</span>
+      <span class="badge ${getCategoryClass(item.category)}">${item.category}</span>
+      <span class="badge ${getStatusClass(item.status)}">${item.status}</span>
+      <span class="badge ${item.risk === "需核验" ? "badge-risk" : "badge-good"}">${item.risk}</span>
+      <span class="badge badge-low">评分 ${item.score}</span>
     </div>
     <div class="summary-box">
       <strong>运营摘要：</strong>${item.summary}
@@ -303,6 +333,9 @@ function buildDigestText() {
 function renderDigest() {
   const picked = state.items.filter((item) => state.digestIds.has(item.id));
   nodes.digestCount.textContent = `${picked.length} 条`;
+  document.querySelector("#selectedCount").textContent = picked.length;
+  document.querySelector("#tableFooterText").textContent = `${picked.length} 条入选日报。`;
+  document.querySelector("#bulkBar").classList.toggle("show", picked.length > 0);
   nodes.digestPreview.textContent = buildDigestText();
 }
 

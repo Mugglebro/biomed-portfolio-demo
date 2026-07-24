@@ -147,6 +147,13 @@ function init() {
 }
 
 function bindEvents() {
+  document.querySelectorAll("[data-view-link]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      showView(link.dataset.viewLink);
+    });
+  });
+
   document.querySelectorAll(".filter-chip").forEach((button) => {
     button.addEventListener("click", () => {
       state.filter = button.dataset.filter;
@@ -188,14 +195,10 @@ function bindEvents() {
   });
 
   document.querySelector("#exportBtn").addEventListener("click", async () => {
-    const text = buildDigestText();
-    try {
-      await navigator.clipboard.writeText(text);
-      toast("日报文本已复制");
-    } catch {
-      toast("浏览器限制复制，请在日报预览中手动选择文本");
-    }
+    copyDigestText();
   });
+
+  document.querySelector("#exportBtnDigest").addEventListener("click", copyDigestText);
 
   document.querySelector("#selectAllDigest").addEventListener("change", (event) => {
     getVisibleItems().forEach((item) => {
@@ -240,6 +243,26 @@ function bindEvents() {
   });
 }
 
+function showView(viewName) {
+  document.querySelectorAll(".view").forEach((view) => {
+    view.classList.toggle("active", view.dataset.view === viewName);
+  });
+  document.querySelectorAll("[data-view-link]").forEach((link) => {
+    link.classList.toggle("active", link.dataset.viewLink === viewName);
+  });
+  window.location.hash = viewName;
+}
+
+async function copyDigestText() {
+  const text = buildDigestText();
+  try {
+    await navigator.clipboard.writeText(text);
+    toast("日报文本已复制");
+  } catch {
+    toast("浏览器限制复制，请在日报预览中手动选择文本");
+  }
+}
+
 function getVisibleItems() {
   return state.items.filter((item) => {
     const matchFilter = state.filter === "全部" || item.category === state.filter;
@@ -256,6 +279,7 @@ function render() {
   renderDetail();
   renderDigest();
   renderPreferenceBars();
+  renderHistory();
 }
 
 function renderMetrics() {
@@ -445,6 +469,25 @@ function renderDigest() {
   document.querySelector("#tableFooterText").textContent = `${picked.length} 条入选日报。`;
   document.querySelector("#bulkBar").classList.toggle("show", picked.length > 0);
   nodes.digestPreview.textContent = buildDigestText();
+  renderDigestItems(picked);
+}
+
+function renderDigestItems(picked) {
+  const container = document.querySelector("#digestItemsList");
+  if (!picked.length) {
+    container.innerHTML = '<div class="empty-row"><strong>尚未选择资讯</strong><span>回到候选审核页，将合适资讯加入日报。</span></div>';
+    return;
+  }
+
+  container.innerHTML = picked.map((item, index) => {
+    return `
+      <article class="digest-item">
+        <strong>${index + 1}. ${item.title}</strong>
+        <span>${item.source} / ${item.category} / 评分 ${item.score}</span>
+        <small>${item.recommendedAction}</small>
+      </article>
+    `;
+  }).join("");
 }
 
 function renderPreferenceBars() {
@@ -478,6 +521,14 @@ function renderPreferenceBars() {
   if (reactions.length >= 4 && new Set(reactions).size === 1) {
     toast("检测到反馈过于集中，真实系统会进入人工复核");
   }
+}
+
+function renderHistory() {
+  const picked = state.items.filter((item) => state.digestIds.has(item.id));
+  const feedbackCount = Object.keys(state.reactions).length;
+  document.querySelector("#historyItemCount").textContent = picked.length;
+  document.querySelector("#historyVerifyCount").textContent = picked.filter((item) => item.risk === "需核验").length;
+  document.querySelector("#historyFeedbackCount").textContent = feedbackCount;
 }
 
 function toast(message) {

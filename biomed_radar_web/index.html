@@ -15,10 +15,11 @@
           <span class="beta-pill">原型版</span>
         </a>
         <nav class="nav-links" aria-label="页面导航">
-          <a class="active" href="#queue">候选池</a>
-          <a href="#review">审核详情</a>
-          <a href="#digest">日报编排</a>
-          <a href="#feedback">反馈学习</a>
+          <a class="active" href="#candidates" data-view-link="candidates">候选审核</a>
+          <a href="#digest" data-view-link="digest">日报编排</a>
+          <a href="#feedback" data-view-link="feedback">反馈分析</a>
+          <a href="#rules" data-view-link="rules">来源规则</a>
+          <a href="#history" data-view-link="history">历史日报</a>
         </nav>
         <div class="nav-actions">
           <div class="nav-search">搜索资讯 <kbd>Ctrl K</kbd></div>
@@ -39,121 +40,238 @@
         <h1>面向内容运营的生物医药产业资讯搜索工作台</h1>
         <p>聚焦国内创新药、审评审批、BD 授权、融资并购、商业化政策和上市公司公告，把候选资讯转成可核验、可编排、可反馈的日报流程。</p>
         <div class="hero-actions">
-          <a class="primary-link" href="#queue">进入候选池</a>
+          <a class="primary-link" href="#candidates" data-view-link="candidates">进入候选池</a>
           <a class="secondary-link" href="./PRODUCT_PROTOTYPE_BLUEPRINT.md">查看产品蓝图</a>
         </div>
       </div>
     </section>
 
     <main class="container">
-      <section class="summary-grid" aria-label="运行概览">
-        <div><span>今日候选</span><strong id="metricTotal">0</strong><small>自动检索后进入审核池</small></div>
-        <div><span>已入日报</span><strong id="metricDigest">0</strong><small>人工确认后的推送候选</small></div>
-        <div><span>需核验</span><strong id="metricVerify">0</strong><small>审批、交易、融资等高风险事实</small></div>
-        <div><span>可做选题</span><strong id="metricTopic">0</strong><small>适合后续内容运营展开</small></div>
-      </section>
+      <section class="view active" data-view="candidates" id="candidates">
+        <section class="summary-grid" aria-label="运行概览">
+          <div><span>今日候选</span><strong id="metricTotal">0</strong><small>自动检索后进入审核池</small></div>
+          <div><span>已入日报</span><strong id="metricDigest">0</strong><small>人工确认后的推送候选</small></div>
+          <div><span>需核验</span><strong id="metricVerify">0</strong><small>审批、交易、融资等高风险事实</small></div>
+          <div><span>可做选题</span><strong id="metricTopic">0</strong><small>适合后续内容运营展开</small></div>
+        </section>
 
-      <section class="section-heading" id="queue">
-        <div>
-          <h2>今日候选池</h2>
-          <p>高价值产业事件进入审核列表，泛科研、会议论坛和趋势稿默认降权。</p>
-        </div>
-        <div class="heading-actions">
-          <button class="secondary-button" type="button">导出候选</button>
-          <button class="primary-button" type="button">新建资讯</button>
-        </div>
-      </section>
-
-      <section class="table-panel">
-        <div class="filter-bar" role="toolbar" aria-label="筛选条件">
-          <div class="filter-input">
-            <span>⌕</span>
-            <input id="searchInput" type="search" placeholder="搜索标题、来源、公司" />
-          </div>
-          <button class="facet-button filter-chip active" data-filter="全部" type="button">全部</button>
-          <button class="facet-button filter-chip" data-filter="BD授权出海" type="button">BD/授权/出海</button>
-          <button class="facet-button filter-chip" data-filter="NMPA/CDE" type="button">NMPA/CDE</button>
-          <button class="facet-button filter-chip" data-filter="融资并购" type="button">融资并购</button>
-          <button class="facet-button filter-chip" data-filter="商业化医保集采" type="button">商业化/医保</button>
-          <button class="reset-button" type="button">清除</button>
-          <label class="verify-toggle">
-            <input id="verifyOnly" type="checkbox" />
-            只看需核验
-          </label>
-        </div>
-
-        <div id="bulkBar" class="bulk-bar">
-          <div><b id="selectedCount">0</b><span>条已加入日报</span><small>从候选池中筛选出的本期内容</small></div>
-          <div class="bulk-actions">
-            <button id="bulkPublishable" type="button">设为可发</button>
-            <button id="bulkNeedSummary" type="button">补充摘要</button>
-            <button id="bulkVerify" type="button">标记核验</button>
-            <button id="bulkRemove" class="danger" type="button">移出日报</button>
-          </div>
-        </div>
-
-        <div class="table-scroll">
-          <div class="news-table" role="table" aria-label="资讯候选表">
-            <div class="news-table-head" role="row">
-              <label class="select-all"><input id="selectAllDigest" type="checkbox" aria-label="全选加入日报" /></label>
-              <span>编号</span>
-              <span>资讯标题</span>
-              <span>来源</span>
-              <span>状态</span>
-              <span>风险</span>
-              <span>评分</span>
-              <span>动作</span>
-            </div>
-            <div id="newsList" class="news-list" aria-live="polite"></div>
-          </div>
-        </div>
-
-        <footer class="pagination-footer">
-          <span id="tableFooterText">0 条入选日报。</span>
+        <section class="section-heading">
           <div>
-            <span>每页 25 条</span>
-            <button type="button" disabled>‹</button>
-            <strong>1 / 1</strong>
-            <button type="button">›</button>
+            <h2>今日候选池</h2>
+            <p>高价值产业事件进入审核列表，泛科研、会议论坛和趋势稿默认降权。</p>
           </div>
-        </footer>
+          <div class="heading-actions">
+            <button class="secondary-button" type="button">导出候选</button>
+            <button class="primary-button" type="button">新建资讯</button>
+          </div>
+        </section>
+
+        <section class="table-panel">
+          <div class="filter-bar" role="toolbar" aria-label="筛选条件">
+            <div class="filter-input">
+              <span>⌕</span>
+              <input id="searchInput" type="search" placeholder="搜索标题、来源、公司" />
+            </div>
+            <button class="facet-button filter-chip active" data-filter="全部" type="button">全部</button>
+            <button class="facet-button filter-chip" data-filter="BD授权出海" type="button">BD/授权/出海</button>
+            <button class="facet-button filter-chip" data-filter="NMPA/CDE" type="button">NMPA/CDE</button>
+            <button class="facet-button filter-chip" data-filter="融资并购" type="button">融资并购</button>
+            <button class="facet-button filter-chip" data-filter="商业化医保集采" type="button">商业化/医保</button>
+            <button class="reset-button" type="button">清除</button>
+            <label class="verify-toggle">
+              <input id="verifyOnly" type="checkbox" />
+              只看需核验
+            </label>
+          </div>
+
+          <div id="bulkBar" class="bulk-bar">
+            <div><b id="selectedCount">0</b><span>条已加入日报</span><small>从候选池中筛选出的本期内容</small></div>
+            <div class="bulk-actions">
+              <button id="bulkPublishable" type="button">设为可发</button>
+              <button id="bulkNeedSummary" type="button">补充摘要</button>
+              <button id="bulkVerify" type="button">标记核验</button>
+              <button id="bulkRemove" class="danger" type="button">移出日报</button>
+            </div>
+          </div>
+
+          <div class="table-scroll">
+            <div class="news-table" role="table" aria-label="资讯候选表">
+              <div class="news-table-head" role="row">
+                <label class="select-all"><input id="selectAllDigest" type="checkbox" aria-label="全选加入日报" /></label>
+                <span>编号</span>
+                <span>资讯标题</span>
+                <span>来源</span>
+                <span>状态</span>
+                <span>风险</span>
+                <span>评分</span>
+                <span>动作</span>
+              </div>
+              <div id="newsList" class="news-list" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <footer class="pagination-footer">
+            <span id="tableFooterText">0 条入选日报。</span>
+            <div>
+              <span>每页 25 条</span>
+              <button type="button" disabled>‹</button>
+              <strong>1 / 1</strong>
+              <button type="button">›</button>
+            </div>
+          </footer>
+        </section>
+
+        <section class="detail-grid">
+          <article class="panel" id="review">
+            <div class="panel-heading">
+              <div>
+                <h2>审核详情</h2>
+                <p>点击表格行查看摘要、原始链接和人工核验原因。</p>
+              </div>
+            </div>
+            <div id="detailView" class="detail-view"></div>
+          </article>
+
+          <article class="panel">
+            <div>
+              <div class="panel-heading">
+                <div>
+                  <h2>今日操作建议</h2>
+                  <p>让运营人员知道下一步该先处理什么。</p>
+                </div>
+              </div>
+              <div class="advice-list">
+                <span>优先核验 BD 授权、融资、审批状态等高风险事实。</span>
+                <span>评分 4 分以上且有内容角度的资讯，可先加入日报草稿。</span>
+                <span>会议论坛、趋势解读和无明确事件稿件默认不进入重点资讯。</span>
+              </div>
+            </div>
+          </article>
+        </section>
       </section>
 
-      <section class="detail-grid">
-        <article class="panel" id="review">
-          <div class="panel-heading">
-            <div>
-              <h2>审核详情</h2>
-              <p>点击表格行查看摘要、原始链接和人工核验原因。</p>
-            </div>
+      <section class="view" data-view="digest" id="digest">
+        <section class="section-heading">
+          <div>
+            <h2>日报编排</h2>
+            <p>把候选池中已加入日报的资讯，整理成正式发送前的结构化草稿。</p>
           </div>
-          <div id="detailView" class="detail-view"></div>
-        </article>
-
-        <article class="panel" id="digest">
-          <div class="panel-heading">
-            <div>
-              <h2>日报编排预览</h2>
-              <p>已加入的资讯会实时生成日报草稿。</p>
-            </div>
-            <span id="digestCount" class="count-badge">0 条</span>
+          <div class="heading-actions">
+            <button class="secondary-button" type="button">导出 HTML</button>
+            <button id="exportBtnDigest" class="primary-button" type="button">复制日报</button>
           </div>
-          <pre id="digestPreview" class="digest-preview"></pre>
-        </article>
+        </section>
+        <section class="detail-grid digest-layout">
+          <article class="panel">
+            <div class="panel-heading">
+              <div>
+                <h2>已选资讯</h2>
+                <p>当前日报候选集合，可回到候选池调整。</p>
+              </div>
+              <span id="digestCount" class="count-badge">0 条</span>
+            </div>
+            <div id="digestItemsList" class="digest-items-list"></div>
+          </article>
+          <article class="panel">
+            <div class="panel-heading">
+              <div>
+                <h2>日报预览</h2>
+                <p>自动按重点资讯、可发选题、需核验信息分区。</p>
+              </div>
+            </div>
+            <pre id="digestPreview" class="digest-preview"></pre>
+          </article>
+        </section>
       </section>
 
-      <section class="detail-grid last-grid">
-        <article class="panel" id="feedback">
-          <div class="panel-heading">
-            <div>
-              <h2>反馈学习</h2>
-              <p>反馈影响主题权重，不直接替代人工判断。</p>
-            </div>
+      <section class="view" data-view="feedback" id="feedback">
+        <section class="section-heading">
+          <div>
+            <h2>反馈分析</h2>
+            <p>把用户对资讯质量的反馈沉淀为主题偏好和规则调整建议。</p>
           </div>
-          <div id="preferenceBars" class="preference-bars"></div>
-          <div id="learningLog" class="learning-log"></div>
-        </article>
+        </section>
+        <section class="detail-grid last-grid">
+          <article class="panel">
+            <div class="panel-heading">
+              <div>
+                <h2>主题权重</h2>
+                <p>反馈会影响权重建议，不直接替代人工判断。</p>
+              </div>
+            </div>
+            <div id="preferenceBars" class="preference-bars"></div>
+            <div id="learningLog" class="learning-log"></div>
+          </article>
+          <article class="panel">
+            <div class="panel-heading">
+              <div>
+                <h2>异常反馈判断</h2>
+                <p>反馈需要先判断可信度，再进入规则学习。</p>
+              </div>
+            </div>
+            <div class="audit-list">
+              <span>同一用户连续极端全选，进入人工复核。</span>
+              <span>同一批次反馈高度一致，不直接调整规则。</span>
+              <span>和历史偏好冲突的反馈，先作为观察信号。</span>
+              <span>明确说明原因的反馈，优先进入规则迭代。</span>
+            </div>
+          </article>
+        </section>
+      </section>
 
+      <section class="view" data-view="rules" id="rules">
+        <section class="section-heading">
+          <div>
+            <h2>来源与规则</h2>
+            <p>展示当前检索偏好、来源优先级和降权策略，体现运营判断。</p>
+          </div>
+        </section>
+        <section class="rules-grid">
+          <article class="panel">
+            <div class="panel-heading"><div><h2>优先关注</h2><p>当前国内产业资讯偏好。</p></div></div>
+            <div class="rule-list">
+              <span>中国创新药</span><span>NMPA / CDE</span><span>BD / 授权 / 出海</span><span>融资并购</span><span>ADC / 双抗 / 细胞治疗</span><span>商业化 / 医保 / 集采</span><span>上市公司公告</span>
+            </div>
+          </article>
+          <article class="panel">
+            <div class="panel-heading"><div><h2>默认降权</h2><p>不作为当前重点推送方向。</p></div></div>
+            <div class="rule-list muted-rules">
+              <span>泛科研论文</span><span>基础生物医学研究</span><span>会议论坛</span><span>白皮书</span><span>单纯趋势解读</span><span>无明确事件新闻稿</span>
+            </div>
+          </article>
+          <article class="panel">
+            <div class="panel-heading"><div><h2>来源优先级</h2><p>原始来源优先，产业媒体只作线索。</p></div></div>
+            <div class="source-table">
+              <div><b>CDE / NMPA</b><span>高</span><small>审评审批和监管状态</small></div>
+              <div><b>港交所 / 上市公司公告</b><span>高</span><small>财务、交易、商业化进展</small></div>
+              <div><b>企业官网新闻</b><span>中高</span><small>BD、融资、产品进展</small></div>
+              <div><b>产业媒体</b><span>中</span><small>线索来源，需回到原文核验</small></div>
+            </div>
+          </article>
+        </section>
+      </section>
+
+      <section class="view" data-view="history" id="history">
+        <section class="section-heading">
+          <div>
+            <h2>历史日报</h2>
+            <p>沉淀每天推送了什么、反馈如何、哪些规则被调整。</p>
+          </div>
+          <div class="heading-actions">
+            <button class="secondary-button" type="button">导出记录</button>
+          </div>
+        </section>
+        <section class="table-panel">
+          <div class="history-table">
+            <div class="history-head"><span>日期</span><span>日报标题</span><span>推送条数</span><span>需核验</span><span>反馈数</span><span>状态</span></div>
+            <div><span>2026-07-24</span><b>生物医药产业资讯简报</b><span id="historyItemCount">0</span><span id="historyVerifyCount">0</span><span id="historyFeedbackCount">0</span><span class="badge badge-good">草稿</span></div>
+            <div><span>2026-07-23</span><b>生物医药产业资讯简报</b><span>7</span><span>2</span><span>9</span><span class="badge badge-good">已发送</span></div>
+            <div><span>2026-07-22</span><b>生物医药产业资讯简报</b><span>8</span><span>3</span><span>11</span><span class="badge badge-good">已发送</span></div>
+          </div>
+        </section>
+      </section>
+
+      <section class="view" data-view="audit">
         <article class="panel">
           <div class="panel-heading">
             <div>

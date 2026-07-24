@@ -513,9 +513,9 @@ function renderPreferenceBars() {
     .join("");
 
   nodes.learningLog.innerHTML = `
-    <strong>本地学习记录</strong>
-    <span>已收到 ${reactions.length} 条反馈。反馈只调整主题权重建议，不会直接替代人工审核。</span>
-    <span>若同一批次反馈过于集中，系统会提示人工复核，避免异常反馈影响规则。</span>
+    <strong>反馈概览</strong>
+    <span>已记录 ${reactions.length} 条反馈</span>
+    <span>异常集中反馈：待复核</span>
   `;
 
   if (reactions.length >= 4 && new Set(reactions).size === 1) {

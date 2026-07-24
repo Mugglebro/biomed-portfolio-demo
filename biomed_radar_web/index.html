@@ -11,7 +11,7 @@
       <div class="nav-inner">
         <a class="brand" href="#top" aria-label="返回顶部">
           <span class="brand-mark">IR</span>
-          <span class="brand-name">资讯雷达</span>
+          <span class="brand-name">医药情报台</span>
           <span class="beta-pill">原型版</span>
         </a>
         <nav class="nav-links" aria-label="页面导航">
@@ -37,11 +37,11 @@
           <i></i>
           <span>今日 10:00 自动推送</span>
         </div>
-        <h1>面向内容运营的生物医药产业资讯搜索工作台</h1>
-        <p>聚焦国内创新药、审评审批、BD 授权、融资并购、商业化政策和上市公司公告，把候选资讯转成可核验、可编排、可反馈的日报流程。</p>
+        <h1>今日医药产业情报</h1>
+        <p>国内创新药 / 审评审批 / BD 出海 / 融资并购 / 商业化政策 / 上市公司公告</p>
         <div class="hero-actions">
           <a class="primary-link" href="#candidates" data-view-link="candidates">进入候选池</a>
-          <a class="secondary-link" href="./PRODUCT_PROTOTYPE_BLUEPRINT.md">查看产品蓝图</a>
+          <a class="secondary-link" href="#rules" data-view-link="rules">查看筛选规则</a>
         </div>
       </div>
     </section>
@@ -49,16 +49,16 @@
     <main class="container">
       <section class="view active" data-view="candidates" id="candidates">
         <section class="summary-grid" aria-label="运行概览">
-          <div><span>今日候选</span><strong id="metricTotal">0</strong><small>自动检索后进入审核池</small></div>
-          <div><span>已入日报</span><strong id="metricDigest">0</strong><small>人工确认后的推送候选</small></div>
-          <div><span>需核验</span><strong id="metricVerify">0</strong><small>审批、交易、融资等高风险事实</small></div>
-          <div><span>可做选题</span><strong id="metricTopic">0</strong><small>适合后续内容运营展开</small></div>
+          <div><span>今日候选</span><strong id="metricTotal">0</strong><small>待审核</small></div>
+          <div><span>已入日报</span><strong id="metricDigest">0</strong><small>待编排</small></div>
+          <div><span>需核验</span><strong id="metricVerify">0</strong><small>待确认</small></div>
+          <div><span>选题线索</span><strong id="metricTopic">0</strong><small>可展开</small></div>
         </section>
 
         <section class="section-heading">
           <div>
-            <h2>今日候选池</h2>
-            <p>高价值产业事件进入审核列表，泛科研、会议论坛和趋势稿默认降权。</p>
+            <h2>候选审核</h2>
+            <p>按规则命中排序，先处理高风险事实和高分事件。</p>
           </div>
           <div class="heading-actions">
             <button class="secondary-button" type="button">导出候选</button>
@@ -136,8 +136,8 @@
             <div>
               <div class="panel-heading">
                 <div>
-                  <h2>今日操作建议</h2>
-                  <p>让运营人员知道下一步该先处理什么。</p>
+                <h2>处理优先级</h2>
+                <p>今日审核顺序。</p>
                 </div>
               </div>
               <div class="advice-list">
@@ -153,8 +153,8 @@
       <section class="view" data-view="digest" id="digest">
         <section class="section-heading">
           <div>
-            <h2>日报编排</h2>
-            <p>把候选池中已加入日报的资讯，整理成正式发送前的结构化草稿。</p>
+              <h2>日报编排</h2>
+            <p>确认顺序、核验状态和发送结构。</p>
           </div>
           <div class="heading-actions">
             <button class="secondary-button" type="button">导出 HTML</button>
@@ -166,7 +166,7 @@
             <div class="panel-heading">
               <div>
                 <h2>已选资讯</h2>
-                <p>当前日报候选集合，可回到候选池调整。</p>
+                <p>本期日报候选。</p>
               </div>
               <span id="digestCount" class="count-badge">0 条</span>
             </div>
@@ -176,7 +176,7 @@
             <div class="panel-heading">
               <div>
                 <h2>日报预览</h2>
-                <p>自动按重点资讯、可发选题、需核验信息分区。</p>
+                <p>发送前草稿。</p>
               </div>
             </div>
             <pre id="digestPreview" class="digest-preview"></pre>
@@ -188,7 +188,7 @@
         <section class="section-heading">
           <div>
             <h2>反馈分析</h2>
-            <p>把用户对资讯质量的反馈沉淀为主题偏好和规则调整建议。</p>
+            <p>查看偏好变化和异常反馈。</p>
           </div>
         </section>
         <section class="detail-grid last-grid">
@@ -196,7 +196,7 @@
             <div class="panel-heading">
               <div>
                 <h2>主题权重</h2>
-                <p>反馈会影响权重建议，不直接替代人工判断。</p>
+                <p>按反馈动态调整。</p>
               </div>
             </div>
             <div id="preferenceBars" class="preference-bars"></div>
@@ -205,8 +205,8 @@
           <article class="panel">
             <div class="panel-heading">
               <div>
-                <h2>异常反馈判断</h2>
-                <p>反馈需要先判断可信度，再进入规则学习。</p>
+                <h2>异常反馈</h2>
+                <p>进入复核队列。</p>
               </div>
             </div>
             <div class="audit-list">
@@ -222,25 +222,25 @@
       <section class="view" data-view="rules" id="rules">
         <section class="section-heading">
           <div>
-            <h2>来源与规则</h2>
-            <p>展示当前检索偏好、来源优先级和降权策略，体现运营判断。</p>
+            <h2>来源规则</h2>
+            <p>维护优先主题、降权范围和来源可信度。</p>
           </div>
         </section>
         <section class="rules-grid">
           <article class="panel">
-            <div class="panel-heading"><div><h2>优先关注</h2><p>当前国内产业资讯偏好。</p></div></div>
+            <div class="panel-heading"><div><h2>优先主题</h2><p>当前命中范围。</p></div></div>
             <div class="rule-list">
               <span>中国创新药</span><span>NMPA / CDE</span><span>BD / 授权 / 出海</span><span>融资并购</span><span>ADC / 双抗 / 细胞治疗</span><span>商业化 / 医保 / 集采</span><span>上市公司公告</span>
             </div>
           </article>
           <article class="panel">
-            <div class="panel-heading"><div><h2>默认降权</h2><p>不作为当前重点推送方向。</p></div></div>
+            <div class="panel-heading"><div><h2>降权内容</h2><p>默认不入重点。</p></div></div>
             <div class="rule-list muted-rules">
               <span>泛科研论文</span><span>基础生物医学研究</span><span>会议论坛</span><span>白皮书</span><span>单纯趋势解读</span><span>无明确事件新闻稿</span>
             </div>
           </article>
           <article class="panel">
-            <div class="panel-heading"><div><h2>来源优先级</h2><p>原始来源优先，产业媒体只作线索。</p></div></div>
+            <div class="panel-heading"><div><h2>来源优先级</h2><p>原始来源优先。</p></div></div>
             <div class="source-table">
               <div><b>CDE / NMPA</b><span>高</span><small>审评审批和监管状态</small></div>
               <div><b>港交所 / 上市公司公告</b><span>高</span><small>财务、交易、商业化进展</small></div>
@@ -255,7 +255,7 @@
         <section class="section-heading">
           <div>
             <h2>历史日报</h2>
-            <p>沉淀每天推送了什么、反馈如何、哪些规则被调整。</p>
+            <p>查看推送批次、核验数量和反馈表现。</p>
           </div>
           <div class="heading-actions">
             <button class="secondary-button" type="button">导出记录</button>
@@ -271,28 +271,12 @@
         </section>
       </section>
 
-      <section class="view" data-view="audit">
-        <article class="panel">
-          <div class="panel-heading">
-            <div>
-              <h2>产品自审</h2>
-              <p>按照运营后台可用性检查，而不是按展示页审美检查。</p>
-            </div>
-          </div>
-          <div class="audit-list">
-            <span>筛选、审核、编排、反馈四个核心动作完整</span>
-            <span>内容偏好聚焦国内创新药产业事件</span>
-            <span>需核验资讯必须写明原因</span>
-            <span>页面不包含邮箱、授权码和内部密钥</span>
-          </div>
-        </article>
-      </section>
     </main>
 
     <footer class="page-footer">
       <div class="container">
-        <span><b>资讯雷达</b> · 生物医药产业情报工作台</span>
-        <nav><a href="./LOW_FIDELITY_WIREFRAME.md">线框</a><a href="./DATA_ARCHITECTURE.md">数据结构</a><a href="./UI_REDESIGN_NOTES.md">UI 说明</a></nav>
+        <span><b>医药情报台</b> · 本地工作台</span>
+        <nav><a href="#candidates" data-view-link="candidates">候选审核</a><a href="#rules" data-view-link="rules">规则库</a><a href="#history" data-view-link="history">运行记录</a></nav>
       </div>
     </footer>
 

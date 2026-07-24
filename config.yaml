@@ -1,0 +1,594 @@
+excel:
+  sheet_name: "资讯库"
+  backup_before_write: true
+  backup_dir: "backups"
+  clear_push_today_after_send: false
+
+fetch:
+  enabled: false
+  days_back: 7
+  preferred_days: 3
+  max_items_per_source: 20
+  create_excel_if_missing: true
+  include_archived: true
+  require_direct_article_link: true
+  request_timeout_seconds: 15
+  request_retries: 2
+  google_decode_timeout_seconds: 8
+  sources:
+    - name: "FDA Press Releases"
+      enabled: false
+      source_kind: "primary"
+      region: "美国"
+      language: "英文"
+      category: "监管/医药新闻"
+      url: "https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/press-releases/rss.xml"
+    - name: "EMA News and Press Releases"
+      enabled: false
+      source_kind: "primary"
+      region: "欧洲"
+      language: "英文"
+      category: "监管/医药新闻"
+      url: "https://www.ema.europa.eu/en/news.xml"
+    - name: "NIH News Releases"
+      enabled: false
+      source_kind: "primary"
+      region: "美国"
+      language: "英文"
+      category: "生物医学研究"
+      url: "https://www.nih.gov/news-releases/feed.xml"
+    - name: "PR Newswire Biotechnology"
+      enabled: false
+      source_kind: "primary"
+      region: "全球"
+      language: "英文"
+      category: "一级新闻稿/生物技术"
+      url: "https://www.prnewswire.com/rss/health-latest-news/biotechnology-list.rss"
+    - name: "PR Newswire Pharmaceuticals"
+      enabled: false
+      source_kind: "primary"
+      region: "全球"
+      language: "英文"
+      category: "一级新闻稿/制药"
+      url: "https://www.prnewswire.com/rss/health-latest-news/pharmaceuticals-list.rss"
+    - name: "PR Newswire Clinical Trials"
+      enabled: false
+      source_kind: "primary"
+      region: "全球"
+      language: "英文"
+      category: "一级新闻稿/临床试验"
+      url: "https://www.prnewswire.com/rss/health-latest-news/clinical-trials-medical-discoveries-list.rss"
+    # 以下为官方原始来源的轻量解析器配置位。当前先默认关闭：
+    # CDE 页面有前端加密/动态渲染，NMPA 在本地直连返回 412，港交所标题检索依赖表单接口。
+    # 后续逐个做专用适配器时，可把 enabled 改为 true。
+    - name: "CDE 优先审评公示"
+      enabled: false
+      type: "html_list"
+      source_kind: "primary"
+      region: "中国"
+      language: "中文"
+      category: "官方公告/CDE"
+      url: "https://www.cde.org.cn/main/xxgk/listpage/2f78f372d351c6851af7431c7710a731"
+      link_include_patterns:
+        - "/main/xxgk/"
+        - "/main/news/"
+      title_include_keywords:
+        - 优先审评
+        - 突破性治疗
+        - 上市申请
+        - IND
+        - 受理
+    - name: "NMPA 药品公告"
+      enabled: false
+      type: "html_list"
+      source_kind: "primary"
+      region: "中国"
+      language: "中文"
+      category: "官方公告/NMPA"
+      url: "https://www.nmpa.gov.cn/xxgk/ggtg/ypggtg/index.html"
+      link_include_patterns:
+        - "/xxgk/"
+        - "/yaopin/"
+      title_include_keywords:
+        - 批准
+        - 获批
+        - 上市
+        - 药品
+        - 附条件
+    - name: "港交所医药上市公司公告"
+      enabled: false
+      type: "html_list"
+      source_kind: "primary"
+      region: "中国"
+      language: "中文"
+      category: "上市公司公告/港交所"
+      url: "https://www1.hkexnews.hk/search/titlesearch.xhtml?lang=ZH&market=SEHK&category=0"
+      link_include_patterns:
+        - "/listedco/"
+        - ".pdf"
+      title_include_keywords:
+        - 合作
+        - 授权
+        - 并购
+        - 交易
+        - 股权
+    - name: "Business Wire Biotechnology"
+      type: "html_list"
+      enabled: false
+      source_kind: "primary"
+      region: "全球"
+      language: "英文"
+      category: "一级新闻稿/生物技术"
+      url: "https://www.businesswire.com/newsroom/industry/health/biotechnology"
+    - name: "Business Wire Pharmaceuticals"
+      type: "html_list"
+      enabled: false
+      source_kind: "primary"
+      region: "全球"
+      language: "英文"
+      category: "一级新闻稿/制药"
+      url: "https://www.businesswire.com/newsroom/industry/health/pharmaceuticals"
+    - name: "Nature Subject: Biotechnology"
+      enabled: false
+      source_kind: "secondary"
+      region: "全球"
+      language: "英文"
+      category: "生物技术"
+      url: "https://www.nature.com/subjects/biotechnology.rss"
+    - name: "Nature Subject: Drug Discovery"
+      enabled: false
+      source_kind: "secondary"
+      region: "全球"
+      language: "英文"
+      category: "药物发现"
+      url: "https://www.nature.com/subjects/drug-discovery.rss"
+    - name: "Google News CN: 中国生物医药"
+      source_kind: "aggregator"
+      region: "中国"
+      language: "中文"
+      category: "中国生物医药"
+      url: "https://news.google.com/rss/search?q=%E4%B8%AD%E5%9B%BD%20%E7%94%9F%E7%89%A9%E5%8C%BB%E8%8D%AF%20when%3A7d&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+    - name: "Google News CN: NMPA 官方公告线索"
+      source_kind: "aggregator"
+      region: "中国"
+      language: "中文"
+      category: "官方公告/NMPA"
+      url: "https://news.google.com/rss/search?q=site%3Anmpa.gov.cn%20%28%E8%8D%AF%E5%93%81%20%E8%8E%B7%E6%89%B9%20OR%20%E6%89%B9%E5%87%86%20OR%20%E4%B8%8A%E5%B8%82%20OR%20%E9%99%84%E6%9D%A1%E4%BB%B6%E6%89%B9%E5%87%86%29%20when%3A30d&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+    - name: "Google News CN: 港交所医药公告线索"
+      source_kind: "aggregator"
+      region: "中国"
+      language: "中文"
+      category: "上市公司公告/港交所"
+      url: "https://news.google.com/rss/search?q=site%3Ahkexnews.hk%20%28%E5%88%B6%E8%8D%AF%20OR%20%E7%94%9F%E7%89%A9%20OR%20%E5%8C%BB%E8%8D%AF%29%20%28%E5%90%88%E4%BD%9C%20OR%20%E6%8E%88%E6%9D%83%20OR%20%E5%B9%B6%E8%B4%AD%20OR%20%E4%BA%A4%E6%98%93%20OR%20%E8%82%A1%E6%9D%83%29%20when%3A14d&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+    - name: "Google News CN: 创新药 NMPA CDE"
+      source_kind: "aggregator"
+      region: "中国"
+      language: "中文"
+      category: "中国创新药/监管"
+      url: "https://news.google.com/rss/search?q=%E5%88%9B%E6%96%B0%E8%8D%AF%20%28NMPA%20OR%20CDE%20OR%20%E8%8D%AF%E5%AE%A1%20OR%20%E5%AE%A1%E8%AF%84%29%20when%3A14d&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+    - name: "Google News CN: AI 制药"
+      source_kind: "aggregator"
+      region: "中国"
+      language: "中文"
+      category: "中国 AI 制药"
+      url: "https://news.google.com/rss/search?q=%28AI%E5%88%B6%E8%8D%AF%20OR%20%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%88%B6%E8%8D%AF%20OR%20%E5%88%B6%E8%8D%AFAI%29%20when%3A14d&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+    - name: "Google News CN: 基因编辑 细胞治疗"
+      source_kind: "aggregator"
+      region: "中国"
+      language: "中文"
+      category: "中国前沿疗法"
+      url: "https://news.google.com/rss/search?q=%28%E5%9F%BA%E5%9B%A0%E7%BC%96%E8%BE%91%20OR%20CRISPR%20OR%20%E7%BB%86%E8%83%9E%E6%B2%BB%E7%96%97%20OR%20CAR-T%29%20%E4%B8%AD%E5%9B%BD%20when%3A14d&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+    - name: "Google News CN: BD License-out"
+      source_kind: "aggregator"
+      region: "中国"
+      language: "中文"
+      category: "中国药企BD/出海"
+      url: "https://news.google.com/rss/search?q=%28License-out%20OR%20%E6%8E%88%E6%9D%83%20OR%20%E5%87%BA%E6%B5%B7%20OR%20%E9%A6%96%E4%BB%98%E6%AC%BE%20OR%20%E9%87%8C%E7%A8%8B%E7%A2%91%29%20%28%E5%88%9B%E6%96%B0%E8%8D%AF%20OR%20%E8%8D%AF%E4%BC%81%20OR%20Biotech%29%20when%3A14d&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+    - name: "Google News CN: ADC 双抗 核酸药物"
+      source_kind: "aggregator"
+      region: "中国"
+      language: "中文"
+      category: "中国前沿药物平台"
+      url: "https://news.google.com/rss/search?q=%28ADC%20OR%20%E5%8F%8C%E6%8A%97%20OR%20%E5%A4%9A%E6%8A%97%20OR%20%E6%A0%B8%E9%85%B8%E8%8D%AF%E7%89%A9%20OR%20siRNA%20OR%20mRNA%29%20%28%E4%B8%AD%E5%9B%BD%20OR%20%E5%88%9B%E6%96%B0%E8%8D%AF%29%20when%3A14d&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+    - name: "Google News CN: 药企商业化 医保 集采"
+      source_kind: "aggregator"
+      region: "中国"
+      language: "中文"
+      category: "中国医药商业化/政策"
+      url: "https://news.google.com/rss/search?q=%28%E5%8C%BB%E4%BF%9D%E8%B0%88%E5%88%A4%20OR%20%E9%9B%86%E9%87%87%20OR%20%E5%95%86%E4%B8%9A%E5%8C%96%20OR%20%E5%87%86%E5%85%A5%29%20%28%E5%88%9B%E6%96%B0%E8%8D%AF%20OR%20%E8%8D%AF%E4%BC%81%29%20when%3A14d&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+
+  include_keywords:
+    - AI
+    - artificial intelligence
+    - machine learning
+    - drug discovery
+    - clinical trial
+    - FDA
+    - EMA
+    - NMPA
+    - CDE
+    - approval
+    - biologics
+    - biotechnology
+    - cell therapy
+    - GLP-1
+    - antibody
+    - vaccine
+    - oncology
+    - rare disease
+    - 生物医药
+    - 创新药
+    - 药审
+    - 审评
+    - 批准
+    - 获批
+    - 上市申请
+    - 临床试验
+    - 授权
+    - 出海
+    - 首付款
+    - 里程碑
+    - BD
+    - License-out
+    - License-in
+    - 细胞治疗
+    - 基因编辑
+    - AI制药
+    - 人工智能制药
+    - 制药AI
+    - ADC
+    - 双抗
+    - 多抗
+    - 核酸药物
+    - siRNA
+    - mRNA
+    - CAR-T
+    - TCR-T
+    - TIL
+    - 医保谈判
+    - 集采
+    - 商业化
+
+  exclude_keywords:
+    - tobacco
+    - food recall
+    - cosmetics
+    - veterinary
+    - watermelon
+    - potato
+    - rice
+    - plant
+    - crop
+    - agricultural
+    - fungicide
+    - aquaculture
+    - business hours
+    - closed
+    - holiday
+    - holidays
+    - food chemical
+    - user fee
+    - data files
+    - paid facilities
+    - untitled letters
+    - cruise ship
+
+  priority_keywords:
+    - FDA approves
+    - approval
+    - breakthrough therapy
+    - priority review
+    - CHMP
+    - positive opinion
+    - clinical trial
+    - phase 2
+    - phase 3
+    - pivotal
+    - topline
+    - data readout
+    - AI
+    - artificial intelligence
+    - machine learning
+    - gene editing
+    - CRISPR
+    - cell therapy
+    - CAR-T
+    - antibody
+    - oncology
+    - rare disease
+    - 批准
+    - 获批
+    - 上市申请
+    - IND
+    - NDA
+    - BLA
+    - 优先审评
+    - 突破性疗法
+    - 临床试验
+    - II期
+    - III期
+    - 2期
+    - 3期
+    - 关键临床
+    - 顶线数据
+    - 创新药
+    - License-out
+    - License-in
+    - 授权
+    - 出海
+    - 首付款
+    - 里程碑
+    - 总交易金额
+    - AI制药
+    - 人工智能制药
+    - ADC
+    - 双抗
+    - 多抗
+    - 核酸药物
+    - siRNA
+    - mRNA
+    - 基因编辑
+    - 细胞治疗
+    - 抗体
+    - 肿瘤
+    - 罕见病
+    - 医保谈判
+    - 集采
+    - 商业化
+
+  low_value_keywords:
+    - forum
+    - conference
+    - webinar
+    - meeting
+    - event
+    - talent training
+    - industrial park
+    - investment promotion
+    - business hours
+    - closed
+    - holiday
+    - 论坛
+    - 沙龙
+    - 西洽会
+    - 齐聚
+    - 大会
+    - 会议
+    - 活动
+    - 招商
+    - 产业园
+    - 园区
+    - podcast
+    - featured in
+    - author correction
+    - researchers identify
+    - 学术
+    - 论文
+    - 研究人员发现
+    - 综述
+    - 人才培养
+    - 培训
+    - 调研
+    - 签约仪式
+    - 开幕
+    - 闭幕
+    - 放假
+    - 休假
+    - 营商环境
+    - 地方要闻
+    - 股票
+    - 股价
+    - 大涨
+    - 飙
+    - 港股
+    - IPO
+    - 上市首日
+    - 开盘
+    - 市值
+    - 附股
+    - 财经
+    - 证券
+    - 榜单
+    - 申报
+    - 通知
+    - 概念股
+    - 领涨
+    - 涨停
+    - 股市
+    - 行情
+    - 指数怎么选
+    - 怎么选
+    - 纪要库
+    - 金牌纪要
+    - 投资者
+    - 募资
+    - finance
+    - 财富号
+    - 新浪财经
+    - 搜狐
+    - 一哥
+    - 快速爆发
+    - 热潮
+    - 焦虑
+    - 三小龙
+    - 宁德时代
+    - 最火
+    - 路演
+    - 报告
+    - 白皮书
+    - 趋势
+    - 现状
+    - 格局
+    - 怎么看
+    - 解读
+    - 策略
+    - 实践
+    - 回顾
+    - 聊透
+
+editorial_profile:
+  name: "中文创新药产业情报"
+  reference_accounts:
+    - 新药创始人
+    - 医药魔方
+    - 思齐俱乐部
+    - 动脉网
+    - 氨基观察
+    - E药经理人
+    - 猎药人俱乐部
+    - 谈思生物
+  priority_topics:
+    - 中国创新药
+    - NMPA / CDE
+    - BD / 授权 / 出海
+    - 融资并购
+    - ADC / 双抗 / 细胞治疗等产业事件
+    - 商业化 / 医保 / 集采
+    - 上市公司公告
+  event_required_for_top: true
+  preferred_event_types:
+    - 审评审批
+    - BD交易
+    - 融资并购
+    - 商业化政策
+    - 上市公司公告
+    - 产业事件
+  downgrade_topics:
+    - 会议通知
+    - 招商活动
+    - 地方宣传
+    - 纯股价波动
+    - 榜单申报
+    - 无明确研发或商业化信息的泛产业报道
+    - 报告发布
+    - 趋势解读
+    - 观点评论
+    - 沙龙/会议回顾
+
+fields:
+  aliases:
+    id: ["id", "ID", "编号", "序号"]
+    title: ["title", "标题", "资讯标题"]
+    source: ["source", "来源", "信息来源", "媒体来源"]
+    url: ["url", "URL", "链接", "原文链接", "来源链接"]
+    published_date: ["published_date", "发布时间", "发布日期", "发表时间"]
+    collected_date: ["collected_date", "收集时间", "采集时间", "录入时间"]
+    language: ["language", "语言"]
+    region: ["region", "地区", "国家/地区"]
+    category: ["category", "类别", "分类"]
+    summary_cn: ["summary_cn", "中文摘要", "摘要", "一句话摘要"]
+    key_entities: ["key_entities", "关键实体", "相关公司/机构", "实体"]
+    relevance_to_zettalab: ["relevance_to_zettalab", "行业相关性", "与 ZettaLab 相关性", "与ZettaLab相关性", "相关性"]
+    importance_score: ["importance_score", "重要性评分", "评分", "重要性"]
+    content_angle: ["content_angle", "内容角度", "选题角度"]
+    platform: ["platform", "推荐用途", "推荐平台", "平台"]
+    status: ["status", "状态", "处理状态"]
+    need_verify: ["need_verify", "是否需人工核验", "是否需核验", "需人工核验", "是否需要核验"]
+    push_today: ["push_today", "是否今日推送", "今日推送", "今日是否推送"]
+    pushed: ["pushed", "是否已推送", "已推送", "推送状态"]
+    pushed_at: ["pushed_at", "推送时间", "已推送时间"]
+    reviewer_note: ["reviewer_note", "人工备注", "备注", "核验备注"]
+
+digest:
+  min_importance_score: 4
+  max_items: 10
+  allowed_regions:
+    - 中国
+  include_status:
+    - 可发帖
+    - 建议推送
+  verify_keywords:
+    - NMPA
+    - CDE
+    - 临床
+    - 审批
+    - 融资
+    - 合作金额
+    - 授权
+    - 首付款
+    - 里程碑
+    - 监管
+  exclude_source_keywords:
+    - NIH News Releases
+    - Nature Subject
+  exclude_category_keywords:
+    - 生物医学研究
+  exclude_title_keywords:
+    - podcast
+    - featured in
+    - author correction
+    - claims processing
+    - specialty pharmacy
+    - wearable sensing
+    - researchers identify
+    - study finds
+    - 学术会议
+    - 论坛
+    - 白皮书
+  business_event_keywords:
+    - collaboration
+    - partnership
+    - partner
+    - license
+    - licensing
+    - acquisition
+    - merger
+    - financing
+    - funding
+    - investment
+    - joint venture
+    - agreement
+    - deal
+    - commercial
+    - launch
+    - approved
+    - approval
+    - phase 2
+    - phase 3
+    - clinical data
+    - topline
+    - 合作
+    - 授权
+    - 出海
+    - 首付款
+    - 里程碑
+    - 交易
+    - 并购
+    - 收购
+    - 融资
+    - 投资
+    - 获批
+    - 批准
+    - 受理
+    - 优先审评
+    - 商业化
+  enable_empty_digest: true
+
+mail:
+  enabled: true
+  dry_run: true
+  subject_prefix: "【生物医药产业资讯简报】"
+  use_html: true
+  attach_pushed_excel: true
+
+feedback:
+  enabled: true
+  collect_from_mail: false
+  mail_scan_days: 30
+  pop3_scan_messages: 200
+  public_portal_enabled: true
+  local_portal_enabled: false
+  local_portal_port: 8765
+
+dedup:
+  use_url: true
+  use_title_similarity: true
+  title_similarity_threshold: 0.9
+  keep: "highest_score"
+
+output:
+  output_dir: "outputs"
+  save_text: true
+  save_html: true
+  save_daily_excel_snapshot: true
+  daily_excel_prefix: "auto_news_cn"

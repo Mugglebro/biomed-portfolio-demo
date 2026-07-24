@@ -1,0 +1,39 @@
+# 本地环境与依赖
+.venv/
+__pycache__/
+*.pyc
+
+# 真实配置与敏感信息
+.env
+*.key
+*.pem
+*.token
+
+# 运行产物
+logs/
+outputs/
+backups/
+*.log
+*.zip
+
+# 本地数据与真实资讯库，避免误提交内部资料
+*.xlsx
+*.xls
+*.csv
+*.docx
+ZettaLab_生物医药资讯雷达_使用说明与迭代记录.md
+
+# 本地反馈与临时文件
+feedback/
+cloud_feedback/
+cloud_feedback_pages/
+
+# 早期展示页草稿，当前 Git 仓库只保存产品工具本体
+portfolio/
+portfolio_demo/
+打开作品集.bat
+打开网页作品集Demo.bat
+
+# 系统文件
+.DS_Store
+Thumbs.db

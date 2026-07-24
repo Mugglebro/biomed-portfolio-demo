@@ -47,10 +47,10 @@
 
     <main class="container">
       <section class="summary-grid" aria-label="运行概览">
-        <div><span>候选资讯</span><strong>2,180</strong><small>近 3 个月累计</small></div>
-        <div><span>入选日报</span><strong>368</strong><small>人工确认后推送</small></div>
-        <div><span>规则版本</span><strong>9</strong><small>基于反馈迭代</small></div>
-        <div><span>结构字段</span><strong>21</strong><small>支持核验与留痕</small></div>
+        <div><span>今日候选</span><strong id="metricTotal">0</strong><small>自动检索后进入审核池</small></div>
+        <div><span>已入日报</span><strong id="metricDigest">0</strong><small>人工确认后的推送候选</small></div>
+        <div><span>需核验</span><strong id="metricVerify">0</strong><small>审批、交易、融资等高风险事实</small></div>
+        <div><span>可做选题</span><strong id="metricTopic">0</strong><small>适合后续内容运营展开</small></div>
       </section>
 
       <section class="section-heading" id="queue">
@@ -85,17 +85,17 @@
         <div id="bulkBar" class="bulk-bar">
           <div><b id="selectedCount">0</b><span>条已加入日报</span><small>从候选池中筛选出的本期内容</small></div>
           <div class="bulk-actions">
-            <button type="button">设为可发</button>
-            <button type="button">补充摘要</button>
-            <button type="button">标记核验</button>
-            <button class="danger" type="button">移出日报</button>
+            <button id="bulkPublishable" type="button">设为可发</button>
+            <button id="bulkNeedSummary" type="button">补充摘要</button>
+            <button id="bulkVerify" type="button">标记核验</button>
+            <button id="bulkRemove" class="danger" type="button">移出日报</button>
           </div>
         </div>
 
         <div class="table-scroll">
           <div class="news-table" role="table" aria-label="资讯候选表">
             <div class="news-table-head" role="row">
-              <span></span>
+              <label class="select-all"><input id="selectAllDigest" type="checkbox" aria-label="全选加入日报" /></label>
               <span>编号</span>
               <span>资讯标题</span>
               <span>来源</span>
@@ -151,6 +151,7 @@
             </div>
           </div>
           <div id="preferenceBars" class="preference-bars"></div>
+          <div id="learningLog" class="learning-log"></div>
         </article>
 
         <article class="panel">

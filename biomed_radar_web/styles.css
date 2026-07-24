@@ -425,6 +425,11 @@ input[type="checkbox"] {
   accent-color: var(--cobalt-600);
 }
 
+.select-all {
+  display: inline-flex;
+  align-items: center;
+}
+
 .bulk-bar {
   display: none;
   justify-content: space-between;
@@ -741,6 +746,26 @@ input[type="checkbox"] {
   display: grid;
   gap: 13px;
   padding: 16px;
+}
+
+.learning-log {
+  display: grid;
+  gap: 8px;
+  margin: 0 16px 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.learning-log strong,
+.learning-log span {
+  display: block;
+}
+
+.learning-log strong {
+  color: var(--ink);
 }
 
 .bar-row {

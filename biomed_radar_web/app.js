@@ -1,97 +1,97 @@
 const demoItems = [
   {
     id: "CN-20260724-001",
-    title: "国内创新药企业公布ADC海外授权合作",
+    title: "映川生物 ADC 资产完成海外授权合作",
     source: "上市公司公告",
     sourceType: "公告",
     date: "2026-07-24",
     category: "BD授权出海",
-    company: "某创新药企业",
+    company: "映川生物",
     score: 5,
     status: "建议推送",
     risk: "需核验",
     topicReady: true,
-    recommendedAction: "加入今日重点资讯，并在发送前核对公告原文中的交易结构和权益范围。",
-    contentAngle: "国内创新药资产出海授权，观察交易结构、海外权益和后续临床推进。",
+    recommendedAction: "入选重点。发送前核对交易结构、权益范围和里程碑口径。",
+    contentAngle: "国产 ADC 资产出海授权，观察交易结构和海外权益。",
     verifyReason: "涉及交易金额、里程碑付款和海外权益划分，需要以企业公告或原始新闻稿为准。",
     summary: "该事件体现国内创新药资产继续通过海外授权进入全球开发体系，适合作为BD出海方向的重点观察样本。",
     url: "https://example.com/original-announcement-1"
   },
   {
     id: "CN-20260724-002",
-    title: "CDE受理某双抗新适应症上市申请",
+    title: "澜新医药 LX-102 双抗新适应症获 CDE 受理",
     source: "CDE公开信息",
     sourceType: "监管",
     date: "2026-07-24",
     category: "NMPA/CDE",
-    company: "某生物技术公司",
+    company: "澜新医药",
     score: 5,
     status: "建议推送",
     risk: "需核验",
     topicReady: true,
-    recommendedAction: "进入重点资讯，同时标记为监管信息，发送前回到 CDE 原始记录核对受理状态。",
-    contentAngle: "跟踪国内双抗关键适应症审评节奏和竞争格局。",
+    recommendedAction: "入选重点。发送前核对受理状态、适应症和登记口径。",
+    contentAngle: "双抗新适应症审评进展，观察适应症竞争节奏。",
     verifyReason: "审评状态、适应症表述和受理号容易被二次报道误写，需要回到CDE原始记录核对。",
     summary: "该信息可用于跟踪国内双抗管线审评节奏，以及重点适应症竞争格局变化。",
     url: "https://example.com/cde-record-2"
   },
   {
     id: "CN-20260724-003",
-    title: "本土细胞治疗公司完成新一轮融资",
+    title: "启衡细胞完成 C 轮融资",
     source: "企业新闻稿",
     sourceType: "企业",
     date: "2026-07-23",
     category: "融资并购",
-    company: "某细胞治疗公司",
+    company: "启衡细胞",
     score: 4,
     status: "待确认",
     risk: "需核验",
     topicReady: true,
-    recommendedAction: "先放入需人工核验区，融资金额和投资方确认后再决定是否推送。",
-    contentAngle: "观察细胞治疗赛道融资节奏和资金用途变化。",
+    recommendedAction: "先入核验区。确认金额、投资方和资金用途后再推送。",
+    contentAngle: "细胞治疗融资事件，观察资金流向和管线投入。",
     verifyReason: "融资金额、投资方名单和资金用途属于高风险事实，需以企业原文和工商信息交叉确认。",
     summary: "融资事件反映细胞治疗赛道仍有结构性资金流入，但应避免过度解读为行业全面回暖。",
     url: "https://example.com/company-financing-3"
   },
   {
     id: "CN-20260724-004",
-    title: "国产创新药纳入地方医保支付试点",
+    title: "国产创新药进入地方医保支付试点",
     source: "医保局公开信息",
     sourceType: "政策",
     date: "2026-07-22",
     category: "商业化医保集采",
-    company: "某药企",
+    company: "瑞启医药",
     score: 4,
     status: "可发帖",
     risk: "普通",
     topicReady: true,
-    recommendedAction: "可进入今日重点资讯，适合放在商业化政策观察部分。",
-    contentAngle: "从支付落地角度观察创新药商业化路径。",
+    recommendedAction: "入选重点。归入商业化政策板块。",
+    contentAngle: "创新药支付落地，观察商业化路径。",
     verifyReason: "",
     summary: "该事件可观察创新药从获批到支付落地之间的商业化路径，适合放入商业化政策观察。",
     url: "https://example.com/insurance-policy-4"
   },
   {
     id: "CN-20260724-005",
-    title: "港股生物科技公司披露核心产品商业化进展",
+    title: "港股 18A 公司披露核心产品商业化进展",
     source: "港交所公告",
     sourceType: "公告",
     date: "2026-07-21",
     category: "上市公司公告",
-    company: "某港股18A公司",
+    company: "港股 18A 药企",
     score: 4,
     status: "建议推送",
     risk: "需核验",
     topicReady: true,
-    recommendedAction: "加入日报，但引用销售和财务表述前需要核对公告原文。",
-    contentAngle: "观察港股 18A 公司商业化兑现能力。",
+    recommendedAction: "入选重点。引用销售和财务表述前核对公告原文。",
+    contentAngle: "18A 药企商业化进展，观察兑现能力。",
     verifyReason: "上市公司公告包含财务、销售和产品进展，引用前需核对公告日期、口径和风险提示。",
     summary: "该信息适合作为商业化兑现能力观察案例，重点关注销售进展是否与费用投入匹配。",
     url: "https://example.com/hkex-disclosure-5"
   },
   {
     id: "CN-20260724-006",
-    title: "行业会议发布AI制药趋势观察",
+    title: "行业会议发布 AI 制药趋势观察",
     source: "会议报道",
     sourceType: "媒体",
     date: "2026-07-24",
@@ -101,7 +101,7 @@ const demoItems = [
     status: "不推送",
     risk: "普通",
     topicReady: false,
-    recommendedAction: "默认归档，不进入日报重点资讯。",
+    recommendedAction: "归档。不进入今日重点。",
     contentAngle: "趋势信息缺少明确事件，暂不作为本项目优先内容。",
     verifyReason: "",
     summary: "缺少明确产业事件和原始公告，暂不进入重点候选。",
@@ -354,7 +354,7 @@ function getStatusClass(status) {
 function renderDetail() {
   const item = state.items.find((entry) => entry.id === state.selectedId);
   if (!item) {
-    nodes.detailView.innerHTML = "<p>请选择一条资讯查看审核详情。</p>";
+    nodes.detailView.innerHTML = "<p>请选择一条资讯查看详情。</p>";
     return;
   }
 
@@ -371,11 +371,11 @@ function renderDetail() {
       <strong>运营摘要：</strong>${item.summary}
     </div>
     <div class="summary-box">
-      <strong>内容角度：</strong>${item.contentAngle}
+      <strong>选题角度：</strong>${item.contentAngle}
     </div>
-    ${item.verifyReason ? `<div class="verify-box"><strong>为什么需要人工核验：</strong>${item.verifyReason}</div>` : ""}
+    ${item.verifyReason ? `<div class="verify-box"><strong>核验原因：</strong>${item.verifyReason}</div>` : ""}
     <div class="summary-box">
-      <strong>建议动作：</strong>${item.recommendedAction}
+      <strong>处理建议：</strong>${item.recommendedAction}
     </div>
     <p><strong>原始来源：</strong><a class="source-link" href="${item.url}" target="_blank" rel="noreferrer">${item.url}</a></p>
     <div class="detail-actions">
@@ -424,7 +424,7 @@ function mutateDigestItems(mutator) {
 function buildDigestText() {
   const picked = state.items.filter((item) => state.digestIds.has(item.id));
   if (!picked.length) {
-    return "今日暂无达到推送标准的重点资讯。";
+    return "今日暂无重点资讯。";
   }
 
   const verifyItems = picked.filter((item) => item.risk === "需核验");
@@ -452,13 +452,13 @@ function buildDigestText() {
   });
   if (!topicItems.length) lines.push("", "暂无可展开选题。");
 
-  lines.push("", "三、需人工核验信息");
+  lines.push("", "三、待核验信息");
   verifyItems.forEach((item, index) => {
     lines.push("", `${index + 1}. ${item.title}`, `来源：${item.source}`, `链接：${item.url}`, `核验原因：${item.verifyReason || "需补充核验原因"}`);
   });
-  if (!verifyItems.length) lines.push("", "暂无需人工核验信息。");
+  if (!verifyItems.length) lines.push("", "暂无待核验信息。");
 
-  lines.push("", "四、今日统计", `建议推送：${picked.length} 条`, `需人工核验：${verifyItems.length} 条`, `可进入内容选题：${topicItems.length} 条`);
+  lines.push("", "四、今日统计", `建议推送：${picked.length} 条`, `待核验：${verifyItems.length} 条`, `选题线索：${topicItems.length} 条`);
   return lines.join("\n");
 }
 

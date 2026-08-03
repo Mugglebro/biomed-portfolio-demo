@@ -36,7 +36,7 @@ jobs:
       - name: Build BioEvent app
         working-directory: web_app
         env:
-          NEXT_PUBLIC_BASE_PATH: /bioevent
+          NEXT_PUBLIC_BASE_PATH: /biomed-portfolio-demo/bioevent
         run: |
           npm ci
           npm run build

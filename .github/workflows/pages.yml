@@ -45,9 +45,10 @@ jobs:
         shell: bash
         run: |
           mkdir -p site/med-desk site/bioevent
-          cp -R public_demo/. site/med-desk/
+          rsync -a --exclude='.git' --exclude='.github' --exclude='output' public_demo/ site/med-desk/
           cp -R web_app/out/. site/bioevent/
           cp pages-home/index.html site/index.html
+          touch site/.nojekyll
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

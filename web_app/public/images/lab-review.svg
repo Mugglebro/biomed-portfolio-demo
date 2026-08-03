@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 760" role="img" aria-label="脱敏会议资料图">
+  <rect width="900" height="760" fill="#eef1f0"/>
+  <rect x="80" y="92" width="520" height="390" fill="#ffffff"/>
+  <rect x="110" y="132" width="300" height="18" fill="#d7dddc"/>
+  <rect x="110" y="176" width="420" height="10" fill="#e6e9e8"/>
+  <rect x="110" y="202" width="380" height="10" fill="#e6e9e8"/>
+  <rect x="110" y="255" width="120" height="120" fill="#0f766e" opacity=".14"/>
+  <rect x="250" y="255" width="120" height="120" fill="#111827" opacity=".08"/>
+  <rect x="390" y="255" width="120" height="120" fill="#0f766e" opacity=".22"/>
+  <path d="M690 178c42 0 76 34 76 76v350H585V254c0-42 34-76 76-76h29Z" fill="#d9dedc"/>
+  <path d="M605 604h190l-38 82H556l49-82Z" fill="#c9d0ce"/>
+  <rect x="626" y="270" width="102" height="20" fill="#f7f7f6"/>
+  <rect x="626" y="318" width="126" height="16" fill="#f7f7f6"/>
+  <rect x="626" y="358" width="88" height="16" fill="#f7f7f6"/>
+  <circle cx="212" cy="586" r="58" fill="#0f766e" opacity=".18"/>
+  <rect x="276" y="548" width="268" height="28" fill="#ffffff"/>
+  <rect x="276" y="594" width="210" height="16" fill="#ffffff"/>
+</svg>

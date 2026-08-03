@@ -1,0 +1,32 @@
+{
+  "enabled": true,
+  "search_when_rss_candidates_below": 8,
+  "search_engines": [
+    {
+      "name": "sogou_weixin",
+      "url": "https://weixin.sogou.com/weixin?type=2&query={query}"
+    },
+    {
+      "name": "bing_rss_wechat",
+      "url": "https://www.bing.com/search?format=rss&q=site%3Amp.weixin.qq.com%2Fs%20{query}"
+    },
+    {
+      "name": "bing_html_wechat",
+      "url": "https://www.bing.com/search?q=site%3Amp.weixin.qq.com%2Fs%20{query}"
+    },
+    {
+      "name": "duckduckgo_html_wechat",
+      "url": "https://duckduckgo.com/html/?q=site%3Amp.weixin.qq.com%2Fs%20{query}"
+    },
+    {
+      "name": "so_html_wechat",
+      "url": "https://www.so.com/s?q=site%3Amp.weixin.qq.com%2Fs%20{query}"
+    }
+  ],
+  "max_search_terms_per_run": 2,
+  "max_results_per_keyword": 8,
+  "max_pages_per_run": 120,
+  "request_timeout_seconds": 5,
+  "max_run_seconds": 45,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125 Safari/537.36"
+}

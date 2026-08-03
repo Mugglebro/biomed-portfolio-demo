@@ -1,4 +1,73 @@
-# ZettaLab 生物医药资讯雷达
+# 生物医药信息产品作品集
+
+这个仓库用于集中展示三部分工作：
+
+- `public_demo/`：医药情报台，适合直接通过 GitHub Pages 展示。
+- `web_app/`：之前部署在腾讯云上的 BioEvent Intelligence 用户端与管理员端演示源码。
+- `conference_monitor/`：微信公众号 / RSS 生物医疗会议活动检索、去重、学习和日报邮件推送的后端源码安全公开版。
+
+GitHub Pages 发布后，根页面会提供两个可点击入口：
+
+- `/med-desk/`：医药情报台。
+- `/bioevent/`：BioEvent Intelligence 活动系统。
+
+当前公开版本使用脱敏演示数据，不包含真实邮箱授权码、内部 Excel、运行日志、个人收件人或私有配置。
+
+## 目录说明
+
+### 医药情报台
+
+`public_demo/` 是一个静态网页 Demo，展示内容运营每天处理公开医药产业资讯的流程：候选资讯筛选、来源核验、日报编排、规则库和日报推送记录。
+
+### BioEvent Intelligence
+
+`web_app/` 是完整的 Next.js 前端项目，包含用户端和管理员端：
+
+- 用户端：活动发现、搜索筛选、详情追溯、收藏、备注、工作标签、个人账户。
+- 管理员端：运营总览、活动待审、文章解析、来源管理、重复合并、变更确认、采集规则、账号管理。
+
+为了适配 GitHub Pages，项目在发布时会以静态导出方式构建到 `/bioevent/` 子路径。
+
+### 会议信息检索后端
+
+`conference_monitor/` 是本地运行的后端工具，用于检索公开订阅源中的生物医疗会议活动，保留未举办活动，按历史记录去重，并生成每日 Excel 报告。邮件配置请参考 `conference_monitor/config/mail.env.example`。
+
+真实的 `mail.env`、Excel 报告、日志和长期运行数据不会提交到仓库。
+
+## GitHub Pages 发布方式
+
+仓库已包含 `.github/workflows/pages.yml`。推送到 `main` 或 `master` 后，GitHub Actions 会：
+
+1. 构建 `web_app/`；
+2. 复制 `public_demo/` 到 `/med-desk/`；
+3. 复制 `web_app/out/` 到 `/bioevent/`；
+4. 生成根入口页；
+5. 发布到 GitHub Pages。
+
+如果是第一次发布，需要在 GitHub 仓库设置中开启 Pages，并将 Source 选择为 `GitHub Actions`。
+
+## 本地运行 BioEvent Intelligence
+
+```bash
+cd web_app
+npm install
+npm run dev
+```
+
+## 本地运行会议信息检索
+
+```bash
+cd conference_monitor
+python .\scripts\daily_run.py --force --no-email
+```
+
+如果要真实发送邮件，复制 `conference_monitor/config/mail.env.example` 为 `conference_monitor/config/mail.env`，填入自己的 SMTP 授权码。不要把真实配置提交到 GitHub。
+
+---
+
+以下内容是早期本地资讯雷达工具说明，作为实现背景保留。
+
+## ZettaLab 生物医药资讯雷达
 
 这是一个本地半自动化工具，用于维护 ZettaLab / 衍因科技生物医药资讯 Excel 库，可从公开 RSS/Atom 订阅源自动检索资讯，也支持人工录入后筛选今日重点内容，生成企业微信邮箱日报。
 

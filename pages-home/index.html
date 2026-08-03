@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>生物医药作品集 Demo</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #101828;
+        --muted: #667085;
+        --line: #d9e4e1;
+        --teal: #0f766e;
+        --bg: #f4faf8;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 82% 10%, rgba(20, 184, 166, 0.16), transparent 34%),
+          linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
+        color: var(--ink);
+        font-family: "PingFang SC", "Microsoft YaHei", "Segoe UI", Arial, sans-serif;
+      }
+
+      main {
+        width: min(1120px, calc(100% - 48px));
+        margin: 0 auto;
+        padding: 84px 0;
+      }
+
+      .eyebrow {
+        margin: 0 0 18px;
+        color: #62706e;
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 850px;
+        margin: 0;
+        font-size: clamp(46px, 7vw, 92px);
+        line-height: 0.98;
+        letter-spacing: -0.045em;
+      }
+
+      .intro {
+        max-width: 760px;
+        margin: 28px 0 56px;
+        color: var(--muted);
+        font-size: 20px;
+        line-height: 1.8;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .card {
+        min-height: 280px;
+        padding: 34px;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.86);
+        box-shadow: 0 24px 60px rgba(15, 118, 110, 0.09);
+      }
+
+      .card span {
+        color: var(--teal);
+        font-size: 14px;
+        font-weight: 900;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .card h2 {
+        margin: 22px 0 14px;
+        font-size: 34px;
+        line-height: 1.2;
+        letter-spacing: -0.03em;
+      }
+
+      .card p {
+        min-height: 86px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 17px;
+        line-height: 1.75;
+      }
+
+      .card a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 28px;
+        padding: 13px 20px;
+        border-radius: 999px;
+        background: var(--teal);
+        color: white;
+        font-size: 16px;
+        font-weight: 850;
+        text-decoration: none;
+      }
+
+      .note {
+        margin-top: 34px;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.7;
+      }
+
+      @media (max-width: 780px) {
+        main {
+          width: min(100% - 28px, 1120px);
+          padding: 48px 0;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .card {
+          padding: 26px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">Biomedical Portfolio Demo</p>
+      <h1>生物医药信息产品作品集</h1>
+      <p class="intro">
+        这里集中展示两套可交互演示：一套面向医药产业资讯筛选与日报推送，
+        一套面向公开生物医疗活动发现、用户端和运营后台。源码中同时保留会议信息检索后端的安全公开版本。
+      </p>
+
+      <section class="grid" aria-label="作品入口">
+        <article class="card">
+          <span>Medical Intelligence Desk</span>
+          <h2>医药情报台</h2>
+          <p>从公告、监管信息、企业新闻稿和产业媒体中筛选候选资讯，核验来源，编排日报并记录推送反馈。</p>
+          <a href="./med-desk/">进入医药情报台</a>
+        </article>
+        <article class="card">
+          <span>BioEvent Intelligence</span>
+          <h2>生物医疗活动系统</h2>
+          <p>展示活动发现、搜索筛选、详情追溯、用户工作清单，以及运营后台中的活动审核、来源管理和规则配置。</p>
+          <a href="./bioevent/">进入活动系统</a>
+        </article>
+      </section>
+
+      <p class="note">
+        当前页面为作品集公开演示入口。演示数据已脱敏，不包含真实邮箱授权码、内部 Excel、运行日志或私有配置。
+      </p>
+    </main>
+  </body>
+</html>

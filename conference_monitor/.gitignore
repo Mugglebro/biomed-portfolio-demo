@@ -1,0 +1,4 @@
+config/mail.env
+logs/*.log
+reports/*.xlsx
+data/*.xlsx

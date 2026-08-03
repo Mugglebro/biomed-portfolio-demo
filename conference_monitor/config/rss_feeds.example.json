@@ -1,0 +1,9 @@
+[
+  {
+    "title": "示例公众号订阅源",
+    "xmlUrl": "https://example.com/feed.xml",
+    "htmlUrl": "https://example.com/",
+    "type": "rss",
+    "enabled": true
+  }
+]

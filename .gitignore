@@ -5,6 +5,7 @@ __pycache__/
 
 # 真实配置与敏感信息
 .env
+**/config/mail.env
 *.key
 *.pem
 *.token
@@ -13,6 +14,12 @@ __pycache__/
 logs/
 outputs/
 backups/
+**/logs/
+**/reports/
+**/.next/
+**/node_modules/
+**/.playwright-cli/
+**/out/
 *.log
 *.zip
 
@@ -21,6 +28,10 @@ backups/
 *.xls
 *.csv
 *.docx
+conference_monitor/data/
+conference_monitor/config/mail.env
+conference_monitor/config/rss_feeds.json
+conference_monitor/config/WeWeRSS-All.opml
 ZettaLab_生物医药资讯雷达_使用说明与迭代记录.md
 
 # 本地反馈与临时文件

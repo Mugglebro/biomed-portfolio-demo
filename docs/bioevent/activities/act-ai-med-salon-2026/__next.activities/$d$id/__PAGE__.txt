@@ -1,6 +1,0 @@
-﻿1:"$Sreact.fragment"
-2:I[78119,["/biomed-portfolio-demo/bioevent/_next/static/chunks/1m0ystlku3mdz.js","/biomed-portfolio-demo/bioevent/_next/static/chunks/14mrh2-p_w84d.js","/biomed-portfolio-demo/bioevent/_next/static/chunks/2s-z0thzydpcy.js"],"ActivityDetailClient"]
-3:I[97367,["/biomed-portfolio-demo/bioevent/_next/static/chunks/1m0ystlku3mdz.js","/biomed-portfolio-demo/bioevent/_next/static/chunks/14mrh2-p_w84d.js"],"OutletBoundary"]
-4:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"id":"act-ai-med-salon-2026"}],[["$","script","script-0",{"src":"/biomed-portfolio-demo/bioevent/_next/static/chunks/2s-z0thzydpcy.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"5IYC2uD8Y_Ocfd2R8vdMp"}
-5:null

@@ -1,0 +1,13 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-label="ADC 璁哄潧鑴辨晱瑙嗚">
+  <rect width="1200" height="750" fill="#ecefed"/>
+  <rect x="80" y="88" width="1040" height="574" fill="#f8f8f7"/>
+  <rect x="140" y="150" width="420" height="20" fill="#c9d0ce"/>
+  <rect x="140" y="210" width="300" height="12" fill="#dfe4e2"/>
+  <rect x="140" y="245" width="360" height="12" fill="#dfe4e2"/>
+  <rect x="140" y="310" width="190" height="190" fill="#0f766e" opacity=".18"/>
+  <rect x="366" y="310" width="190" height="190" fill="#111827" opacity=".08"/>
+  <rect x="592" y="310" width="190" height="190" fill="#0f766e" opacity=".12"/>
+  <rect x="818" y="310" width="190" height="190" fill="#111827" opacity=".12"/>
+  <path d="M140 585h740" stroke="#cfd6d4" stroke-width="10"/>
+  <path d="M140 620h520" stroke="#dfe4e2" stroke-width="10"/>
+</svg>

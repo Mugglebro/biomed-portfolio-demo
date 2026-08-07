@@ -1,2 +1,2 @@
-﻿:HL["/biomed-portfolio-demo/bioevent/_next/static/chunks/1io61aeyil_2a.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"settings","param":null,"prefetchHints":0,"slots":{"children":{"name":"profile","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"5IYC2uD8Y_Ocfd2R8vdMp"}
+:HL["/biomed-portfolio-demo/bioevent/_next/static/chunks/27zr34zrppav5.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"settings","param":null,"prefetchHints":0,"slots":{"children":{"name":"profile","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"WaScXVL9T372bv61E1onM"}

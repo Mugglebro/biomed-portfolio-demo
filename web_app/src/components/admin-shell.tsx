@@ -59,6 +59,7 @@ const navGroups = [
     title: "工作台",
     items: [
       { href: "/admin", label: "运营总览", short: "总览" },
+      { href: "/admin/analytics", label: "数据分析", short: "分析" },
       { href: "/admin/activities", label: "活动待审", short: "活动" },
       { href: "/admin/articles", label: "文章解析", short: "文章" },
     ],

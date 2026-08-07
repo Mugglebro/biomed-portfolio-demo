@@ -22,6 +22,7 @@
         <nav class="nav-links" aria-label="页面导航">
           <a class="active" href="#candidates" data-view-link="candidates">候选资讯</a>
           <a href="#digest" data-view-link="digest">日报预览</a>
+          <a href="#analytics" data-view-link="analytics">数据分析</a>
           <a href="#feedback" data-view-link="feedback">反馈复盘</a>
           <a href="#rules" data-view-link="rules">规则库</a>
           <a href="#history" data-view-link="history">推送</a>
@@ -186,6 +187,39 @@
               </div>
             </div>
             <pre id="digestPreview" class="digest-preview"></pre>
+          </article>
+        </section>
+      </section>
+
+      <section class="view" data-view="analytics" id="analytics">
+        <section class="section-heading">
+          <div>
+            <h2>数据分析</h2>
+          </div>
+        </section>
+        <section class="analytics-stage">
+          <div class="analytics-metrics" id="analyticsMetrics"></div>
+          <article class="panel analytics-panel">
+            <div class="panel-heading">
+              <div>
+                <h2 id="analyticsTitle">资讯有效率</h2>
+              </div>
+              <div class="analytics-switcher" role="tablist" aria-label="分析视角">
+                <button class="active" type="button" data-analytics-view="effectiveness">有效率</button>
+                <button type="button" data-analytics-view="sources">来源分布</button>
+                <button type="button" data-analytics-view="topics">主题结构</button>
+                <button type="button" data-analytics-view="feedback">反馈类型</button>
+              </div>
+            </div>
+            <div id="analyticsVisual" class="analytics-visual"></div>
+          </article>
+          <article class="panel analytics-panel">
+            <div class="panel-heading">
+              <div>
+                <h2>运营判断</h2>
+              </div>
+            </div>
+            <div id="analyticsInsight" class="analytics-insight"></div>
           </article>
         </section>
       </section>

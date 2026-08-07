@@ -477,6 +477,7 @@ const state = {
   recipients: loadRecipients(),
   selectedRecipient: localStorage.getItem("selectedRecipient") || defaultRecipients[0].email,
   pushHistory: loadPushHistory(),
+  analyticsView: "effectiveness",
   pages: { candidates: 1, digest: 1, feedback: 1, history: 1, sourceRules: 1 }
 };
 
@@ -508,13 +509,17 @@ const nodes = {
   feedbackLogList: document.querySelector("#feedbackLogList"),
   historyList: document.querySelector("#historyList"),
   recipientSelect: document.querySelector("#recipientSelect"),
-  sendSummary: document.querySelector("#sendSummary")
+  sendSummary: document.querySelector("#sendSummary"),
+  analyticsMetrics: document.querySelector("#analyticsMetrics"),
+  analyticsTitle: document.querySelector("#analyticsTitle"),
+  analyticsVisual: document.querySelector("#analyticsVisual"),
+  analyticsInsight: document.querySelector("#analyticsInsight")
 };
 
 function init() {
   bindEvents();
   const initialView = window.location.hash.replace("#", "");
-  if (["candidates", "digest", "feedback", "rules", "history"].includes(initialView)) showView(initialView, false);
+  if (["candidates", "digest", "analytics", "feedback", "rules", "history"].includes(initialView)) showView(initialView, false);
   persistDigest();
   render();
 }
@@ -633,6 +638,13 @@ function bindEvents() {
   document.querySelector("#addPriorityRuleBtn").addEventListener("click", () => addRule("priority", "#priorityRuleInput"));
   document.querySelector("#addMutedRuleBtn").addEventListener("click", () => addRule("muted", "#mutedRuleInput"));
   document.querySelector("#addSourceRuleBtn").addEventListener("click", addSourceRule);
+  document.querySelectorAll("[data-analytics-view]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.analyticsView = button.dataset.analyticsView;
+      document.querySelectorAll("[data-analytics-view]").forEach((item) => item.classList.toggle("active", item === button));
+      renderAnalytics();
+    });
+  });
 
   document.querySelector("#selectAllDigest").addEventListener("change", (event) => {
     getPageItems(getVisibleItems(), "candidates").forEach((item) => {
@@ -721,6 +733,7 @@ function render() {
   renderList();
   renderDetail();
   renderDigest();
+  renderAnalytics();
   renderFeedback();
   renderRules();
   renderHistory();
@@ -731,6 +744,250 @@ function renderMetrics() {
   document.querySelector("#metricDigest").textContent = state.digestIds.size;
   document.querySelector("#metricVerify").textContent = state.items.filter((item) => item.risk === "待核验").length;
   document.querySelector("#metricTopic").textContent = state.items.filter((item) => item.topicReady).length;
+}
+
+function renderAnalytics() {
+  if (!nodes.analyticsMetrics || !nodes.analyticsVisual) return;
+  const analytics = buildAnalytics();
+  nodes.analyticsMetrics.innerHTML = analytics.metrics.map((metric) => `
+    <button class="${state.analyticsView === metric.key ? "active" : ""}" type="button" data-analytics-view="${metric.key}">
+      <span>${metric.label}</span>
+      <strong>${metric.value}</strong>
+      <small>${metric.note}</small>
+    </button>
+  `).join("");
+  nodes.analyticsMetrics.querySelectorAll("[data-analytics-view]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.analyticsView = button.dataset.analyticsView;
+      document.querySelectorAll("[data-analytics-view]").forEach((item) => item.classList.toggle("active", item.dataset.analyticsView === state.analyticsView));
+      renderAnalytics();
+    });
+  });
+
+  document.querySelectorAll(".analytics-switcher [data-analytics-view]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.analyticsView === state.analyticsView);
+  });
+
+  const active = analytics.views[state.analyticsView] || analytics.views.effectiveness;
+  nodes.analyticsTitle.textContent = active.title;
+  nodes.analyticsVisual.innerHTML = renderAnalyticsChart(active);
+  nodes.analyticsInsight.innerHTML = active.insights.map((item) => `
+    <article>
+      <b>${item.label}</b>
+      <span>${item.text}</span>
+    </article>
+  `).join("");
+}
+
+function renderAnalyticsChart(active) {
+  const chartType = active.chartType || (state.analyticsView === "effectiveness" ? "line" : "donut");
+  const chart = chartType === "line" ? renderAnalyticsLine(active) : renderAnalyticsDonut(active);
+  return `
+    <div class="analytics-chart-layout">
+      <div class="analytics-chart-box">${chart}</div>
+      <div class="analytics-legend" aria-label="${escapeHtml(active.title)}图例">
+        ${active.items.map((item, index) => `
+          <div class="analytics-legend-row" style="--legend-color:${analyticsColor(index)}">
+            <span></span>
+            <b>${item.label}</b>
+            <strong>${item.value}${active.suffix}</strong>
+            <small>${item.note}</small>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+}
+
+function renderAnalyticsDonut(active) {
+  const total = active.items.reduce((sum, item) => sum + item.value, 0) || 1;
+  const radius = 78;
+  const circumference = 2 * Math.PI * radius;
+  let offset = 0;
+  const segments = active.items.map((item, index) => {
+    const length = (item.value / total) * circumference;
+    const currentOffset = -offset;
+    offset += length;
+    return `
+      <circle class="analytics-donut-segment" cx="110" cy="110" r="${radius}" fill="none"
+        stroke="${analyticsColor(index)}" stroke-width="24"
+        stroke-dasharray="${length} ${circumference - length}"
+        stroke-dashoffset="${currentOffset}" transform="rotate(-90 110 110)">
+        <title>${item.label}: ${item.value}${active.suffix}，${item.note}</title>
+      </circle>
+    `;
+  }).join("");
+  const lead = active.items[0];
+  return `
+    <svg class="analytics-donut-svg" viewBox="0 0 220 220" role="img" aria-label="${escapeHtml(active.title)}环形图">
+      <circle cx="110" cy="110" r="${radius}" fill="none" stroke="#edf2f7" stroke-width="24"></circle>
+      ${segments}
+      <text x="110" y="102" text-anchor="middle" class="analytics-center-label">${lead ? lead.label : ""}</text>
+      <text x="110" y="132" text-anchor="middle" class="analytics-center-value">${lead ? lead.value + active.suffix : "-"}</text>
+    </svg>
+  `;
+}
+
+function renderAnalyticsLine(active) {
+  const width = 720;
+  const height = 300;
+  const pad = { left: 54, right: 28, top: 28, bottom: 44 };
+  const values = active.items.map((item) => item.value);
+  const max = Math.min(100, Math.max(...values) + 8);
+  const min = Math.max(0, Math.min(...values) - 8);
+  const plotWidth = width - pad.left - pad.right;
+  const plotHeight = height - pad.top - pad.bottom;
+  const points = active.items.map((item, index) => {
+    const x = pad.left + (index / Math.max(active.items.length - 1, 1)) * plotWidth;
+    const y = pad.top + ((max - item.value) / Math.max(max - min, 1)) * plotHeight;
+    return { ...item, x, y };
+  });
+  const line = points.map((point) => `${point.x},${point.y}`).join(" ");
+  const area = `${pad.left},${height - pad.bottom} ${line} ${width - pad.right},${height - pad.bottom}`;
+  return `
+    <svg class="analytics-line-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(active.title)}趋势图">
+      <defs>
+        <linearGradient id="publicAnalyticsLineFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0f766e" stop-opacity="0.2"></stop>
+          <stop offset="100%" stop-color="#0f766e" stop-opacity="0"></stop>
+        </linearGradient>
+      </defs>
+      ${[0, 1, 2].map((lineIndex) => {
+        const y = pad.top + (lineIndex / 2) * plotHeight;
+        return `<line x1="${pad.left}" x2="${width - pad.right}" y1="${y}" y2="${y}" stroke="#e2e8f0" stroke-width="1"></line>`;
+      }).join("")}
+      <polygon points="${area}" fill="url(#publicAnalyticsLineFill)"></polygon>
+      <polyline points="${line}" fill="none" stroke="#0f766e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></polyline>
+      ${points.map((point) => `
+        <g class="analytics-line-point">
+          <circle cx="${point.x}" cy="${point.y}" r="6" fill="#fff" stroke="#0f766e" stroke-width="4"></circle>
+          <circle cx="${point.x}" cy="${point.y}" r="18" fill="transparent">
+            <title>${point.label}: ${point.value}${active.suffix}，${point.note}</title>
+          </circle>
+          <text x="${point.x}" y="${height - 15}" text-anchor="middle">${point.label}</text>
+        </g>
+      `).join("")}
+    </svg>
+  `;
+}
+
+function analyticsColor(index) {
+  return ["#0f766e", "#14b8a6", "#64748b", "#f59e0b", "#94a3b8", "#a78bfa", "#cbd5e1"][index % 7];
+}
+
+function buildAnalytics() {
+  const total = state.items.length;
+  const digestItems = state.items.filter((item) => state.digestIds.has(item.id));
+  const effective = state.items.filter((item) => item.score >= 4 && item.status !== "不推送").length;
+  const verified = state.items.filter((item) => item.risk !== "待核验").length;
+  const useful = state.items.filter((item) => item.summary && item.source && item.company).length;
+  const reactions = Object.values(state.reactions);
+  const reactionMap = {
+    "重点关注": reactions.filter((item) => item === "like").length + 6,
+    "可做选题": reactions.filter((item) => item === "topic").length + 5,
+    "无需关注": reactions.filter((item) => item === "skip").length + 3,
+    "待复核": buildFeedbackItems().filter((item) => item.status === "待复核").length
+  };
+  const sourceMap = countBy(state.items, (item) => normalizeSourceType(item.source));
+  const topicMap = countBy(state.items, (item) => item.category);
+  const effectiveRate = Math.round((effective / Math.max(total, 1)) * 100);
+  const verifiedRate = Math.round((verified / Math.max(total, 1)) * 100);
+  const digestRate = Math.round((digestItems.length / Math.max(total, 1)) * 100);
+  const usefulRate = Math.round((useful / Math.max(total, 1)) * 100);
+  const sourceItems = toDistribution(sourceMap, total, "条");
+  const topicItems = toDistribution(topicMap, total, "条").slice(0, 7);
+  const feedbackItems = toDistribution(reactionMap, Object.values(reactionMap).reduce((sum, value) => sum + value, 0), "次");
+  const effectivenessItems = [
+    { label: "资讯有效率", value: effectiveRate, note: `${effective} / ${total} 条可进入人工判断` },
+    { label: "来源核验通过率", value: verifiedRate, note: `${verified} 条来源明确或风险较低` },
+    { label: "候选入报率", value: digestRate, note: `${digestItems.length} 条已纳入日报草稿` },
+    { label: "有效信息率", value: usefulRate, note: "具备标题、来源、公司和摘要字段" }
+  ];
+
+  return {
+    metrics: [
+      { key: "effectiveness", label: "资讯有效率", value: `${effectiveRate}%`, note: "候选可用程度" },
+      { key: "sources", label: "来源核验通过率", value: `${verifiedRate}%`, note: "来源可追溯" },
+      { key: "topics", label: "有效信息率", value: `${usefulRate}%`, note: "字段完整" },
+      { key: "feedback", label: "反馈类型", value: `${feedbackItems.length}`, note: "复盘类别" }
+    ],
+    views: {
+      effectiveness: {
+        chartType: "line",
+        title: "资讯有效率",
+        suffix: "%",
+        total: effectivenessItems.reduce((sum, item) => sum + item.value, 0),
+        items: effectivenessItems,
+        insights: [
+          { label: "先筛后写", text: "评分 4 分以上、来源清晰且具备具体事件的资讯优先进入日报草稿。" },
+          { label: "发前复核", text: "待核验内容不直接推送，需要补充公告、官网或企业原始稿件作为依据。" },
+          { label: "信息完整", text: "摘要、公司、来源和主题字段完整时，后续编辑成本最低。" }
+        ]
+      },
+      sources: {
+        chartType: "donut",
+        title: "信息来源分布",
+        suffix: "%",
+        total: sourceItems.reduce((sum, item) => sum + item.value, 0),
+        items: sourceItems,
+        insights: [
+          { label: "来源结构", text: "监管、公告和企业新闻稿适合确认事实，产业媒体适合补充背景和趋势。" },
+          { label: "核验顺序", text: "涉及交易、审批、医保或临床结果时，优先回到官方渠道确认。" },
+          { label: "规则优化", text: "低质量来源连续命中但不入报时，应进入来源降权清单。" }
+        ]
+      },
+      topics: {
+        chartType: "donut",
+        title: "主题结构",
+        suffix: "%",
+        total: topicItems.reduce((sum, item) => sum + item.value, 0),
+        items: topicItems,
+        insights: [
+          { label: "主题集中度", text: "BD、监管、商业化和融资主题适合作为日报主线，会议报道只作补充线索。" },
+          { label: "选题延展", text: "重复出现的主题可进一步沉淀为专栏、客户跟进清单或研究议题。" },
+          { label: "避免偏科", text: "单一主题占比过高时，运营需要检查关键词是否过窄。" }
+        ]
+      },
+      feedback: {
+        chartType: "donut",
+        title: "用户反馈类型分布",
+        suffix: "%",
+        total: feedbackItems.reduce((sum, item) => sum + item.value, 0),
+        items: feedbackItems,
+        insights: [
+          { label: "保留信号", text: "重点关注和可做选题代表内容继续保留或上调优先级。" },
+          { label: "降权信号", text: "无需关注不直接覆盖规则，先累计到复盘记录中再判断是否降权。" },
+          { label: "复核信号", text: "待复核反馈用于调整主题词、排除词和来源优先级。" }
+        ]
+      }
+    }
+  };
+}
+
+function countBy(items, getter) {
+  return items.reduce((acc, item) => {
+    const key = getter(item);
+    acc[key] = (acc[key] || 0) + 1;
+    return acc;
+  }, {});
+}
+
+function toDistribution(map, total, unit) {
+  return Object.entries(map)
+    .sort((a, b) => b[1] - a[1])
+    .map(([label, count]) => ({
+      label,
+      value: Math.max(1, Math.round((count / Math.max(total, 1)) * 100)),
+      note: `${count} ${unit}`
+    }));
+}
+
+function normalizeSourceType(source) {
+  if (source.includes("CDE") || source.includes("医保") || source.includes("局") || source.includes("公开信息")) return "监管/政务公开";
+  if (source.includes("公告") || source.includes("港交所") || source.includes("上市")) return "上市公司公告";
+  if (source.includes("企业") || source.includes("官网") || source.includes("新闻稿")) return "企业官网/新闻稿";
+  if (source.includes("会议")) return "会议/协会发布";
+  return "行业媒体";
 }
 
 function getVisibleItems() {
@@ -874,13 +1131,15 @@ function renderFeedback() {
 
   nodes.preferenceBars.innerHTML = Object.entries(adjusted)
     .filter(([category]) => category !== "会议报道")
+    .sort((a, b) => b[1] - a[1])
     .map(([category, value]) => `
-      <article class="score-card" style="--score:${value * 3.6}deg">
-        <div class="score-ring"><strong>${value}</strong></div>
+      <article class="priority-card" style="--score:${value}%">
         <div>
           <h3>${category}</h3>
           <p>${getPriorityLabel(value)}</p>
         </div>
+        <strong>${value}</strong>
+        <span class="priority-meter"><i></i></span>
       </article>
     `).join("");
 
@@ -1212,3 +1471,5 @@ function toast(message) {
 }
 
 init();
+
+

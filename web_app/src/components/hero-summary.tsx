@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Database, GitMerge, Newspaper, RefreshCcw } from "lucide-react";
 import { getSourceStats } from "@/lib/data";
+import { assetUrl, withBasePath } from "@/lib/paths";
 import { SnapshotBanner } from "./snapshot-banner";
 
 export function HeroSummary() {
@@ -36,7 +37,7 @@ export function HeroSummary() {
             <div className="grid gap-5">
               <div className="relative h-[300px] overflow-hidden bg-zinc-100 md:h-[380px] lg:h-[470px]">
                 <Image
-                  src="/images/cover-adc.png"
+                  src={assetUrl("/images/cover-adc.png")}
                   alt="生物医疗行业会议现场"
                   fill
                   className="object-cover"
@@ -50,7 +51,7 @@ export function HeroSummary() {
                 <SourceLine code="RSS-009" title="沙龙延期" meta="RSS · 07/25" />
               </div>
               <Link
-                href="/calendar"
+                href={withBasePath("/calendar")}
                 className="inline-flex items-center gap-3 text-sm font-semibold tracking-wide text-teal-700 hover:text-teal-900"
               >
                 查看活动日程排期

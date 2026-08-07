@@ -6,6 +6,7 @@ import { ActivityStatusBadge, RegistrationBadge } from "@/components/status-badg
 import { formatLabels } from "@/data/labels";
 import { activities } from "@/data/fixtures";
 import { formatDate, getActivity, getOrganizer } from "@/lib/data";
+import { assetUrl, withBasePath } from "@/lib/paths";
 
 export function generateStaticParams() {
   return activities.map((activity) => ({ id: activity.id }));
@@ -28,7 +29,7 @@ export default async function OriginalPreviewPage({
         <div className="grid gap-0 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="relative min-h-72 bg-zinc-100">
             <Image
-              src={activity.coverImage}
+              src={assetUrl(activity.coverImage)}
               alt={activity.coverAlt}
               fill
               className={`object-cover ${activity.coverPosition ?? "object-center"}`}
@@ -38,7 +39,7 @@ export default async function OriginalPreviewPage({
           </div>
           <div className="p-8 md:p-12">
             <Link
-              href={`/activities/${activity.id}`}
+              href={withBasePath(`/activities/${activity.id}`)}
               className="inline-flex items-center gap-2 text-sm font-medium text-teal-700 hover:text-teal-900"
             >
               <ArrowLeft className="size-4" />

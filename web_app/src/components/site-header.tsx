@@ -10,7 +10,6 @@ import type { ActivityFilters } from "@/data/types";
 const navItems = [
   { href: "/app", label: "活动发现" },
   { href: "/calendar", label: "行业日历" },
-  { href: "/my-events", label: "我的活动" },
 ];
 
 export function SiteHeader({
@@ -28,6 +27,9 @@ export function SiteHeader({
   const router = useRouter();
   const auth = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
+  const visibleNavItems = auth.isAuthenticated
+    ? [...navItems, { href: "/my-events", label: "我的活动" }]
+    : navItems;
 
   const goSearch = () => {
     if (pathname !== "/app") {
@@ -50,7 +52,7 @@ export function SiteHeader({
             BioEvent <span className="text-teal-700">Intelligence</span>
           </Link>
           <nav className="flex items-center gap-8" aria-label="Primary">
-            {navItems.map((item) => {
+            {visibleNavItems.map((item) => {
               const active = pathname === item.href;
               return (
                 <Link
@@ -113,7 +115,6 @@ export function SiteHeader({
                     <p className="text-xs text-zinc-500">{auth.user?.email}</p>
                   </div>
                   <MenuLink href="/my-events" label="我的活动" />
-                  <MenuLink href="/settings/preferences" label="我的关注" />
                   <MenuLink href="/settings" label="个人设置" />
                   <button
                     type="button"

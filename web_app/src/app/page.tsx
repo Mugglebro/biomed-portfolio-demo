@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import { activities, articles, sources } from "@/data/fixtures";
+import { assetUrl } from "@/lib/paths";
 
 const metrics = [
   { label: "活动样例", value: activities.length },
@@ -210,9 +212,13 @@ function EntryCard({ title, body, href, cta }: { title: string; body: string; hr
 }
 
 function HeroBackdrop() {
+  const heroStyle = {
+    "--bioevent-hero-image": `url("${assetUrl("/images/bioevent-hero-intelligence.png")}")`,
+  } as CSSProperties;
+
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-      <div className="bioevent-hero-photo absolute inset-0" />
+      <div className="bioevent-hero-photo absolute inset-0" style={heroStyle} />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(247,251,250,0.96)_0%,rgba(247,251,250,0.88)_36%,rgba(247,251,250,0.58)_68%,rgba(247,251,250,0.74)_100%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(204,251,241,0.38),transparent_32%),radial-gradient(circle_at_82%_12%,rgba(15,118,110,0.12),transparent_30%)]" />
       <div className="bioevent-light-sweep absolute -left-1/3 top-0 h-full w-1/2 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.62),transparent)] blur-2xl" />

@@ -4,6 +4,7 @@ import { X } from "lucide-react";
 import { articleNatureLabels } from "@/data/labels";
 import type { Activity } from "@/data/types";
 import { formatDateTime, getArticlesForActivity, getSource } from "@/lib/data";
+import { withBasePath } from "@/lib/paths";
 
 const sourceChannelLabels: Record<string, string> = {
   wechat: "微信公众号",
@@ -87,7 +88,7 @@ export function SourceDrawer({
                     </div>
                   </div>
                   <a
-                    href={article.originalUrl}
+                    href={withBasePath(article.originalUrl)}
                     target="_blank"
                     rel="noreferrer"
                     className="mt-4 inline-flex text-sm font-medium text-teal-700 hover:text-teal-900"

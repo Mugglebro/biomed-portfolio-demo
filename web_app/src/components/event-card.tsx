@@ -6,6 +6,7 @@ import { Bookmark, BookmarkCheck, CalendarDays, ExternalLink, MapPin } from "luc
 import { formatLabels } from "@/data/labels";
 import type { Activity, UserSavedActivity } from "@/data/types";
 import { formatDate, getOrganizer } from "@/lib/data";
+import { assetUrl } from "@/lib/paths";
 import { ActivityStatusBadge, RegistrationBadge } from "./status-badge";
 
 export function FeaturedEventCard({
@@ -25,7 +26,7 @@ export function FeaturedEventCard({
       <Link href={`/activities/${activity.id}`} className="block">
         <div className="aspect-[16/10] overflow-hidden bg-zinc-100">
           <Image
-            src={activity.coverImage}
+            src={assetUrl(activity.coverImage)}
             alt={activity.coverAlt}
             width={1200}
             height={750}
@@ -92,7 +93,7 @@ export function EventCard({
       <div className="grid gap-5 md:grid-cols-[128px_76px_1fr_auto] md:items-start">
         <Link href={`/activities/${activity.id}`} className="block overflow-hidden bg-zinc-100">
           <Image
-            src={activity.coverImage}
+            src={assetUrl(activity.coverImage)}
             alt={activity.coverAlt}
             width={320}
             height={220}

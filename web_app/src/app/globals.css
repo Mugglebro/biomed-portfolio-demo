@@ -33,9 +33,10 @@ body {
 }
 
 .bioevent-hero-photo {
-  background-image: url("/images/bioevent-hero-intelligence.png");
+  background-image: var(--bioevent-hero-image, url("/images/bioevent-hero-intelligence.png"));
   background-position: center;
   background-size: cover;
+  opacity: 0.82;
   transform-origin: 72% 44%;
   animation: bioevent-kenburns 22s ease-in-out infinite alternate;
 }

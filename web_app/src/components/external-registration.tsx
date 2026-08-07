@@ -1,10 +1,13 @@
 import { ExternalLink } from "lucide-react";
+import { withBasePath } from "@/lib/paths";
 
 export function ExternalRegistration({ url }: { url: string }) {
+  const resolvedUrl = withBasePath(url);
+
   return (
     <div className="border border-teal-100 bg-teal-50/60 p-5">
       <a
-        href={url}
+        href={resolvedUrl}
         target="_blank"
         rel="noreferrer"
         className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-teal-700 px-4 text-sm font-semibold text-white transition hover:bg-teal-800"

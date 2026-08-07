@@ -1,2 +1,2 @@
-:HL["/biomed-portfolio-demo/bioevent/_next/static/chunks/27zr34zrppav5.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"activities","param":null,"prefetchHints":0,"slots":{"children":{"name":"id","param":{"type":"d","key":"act-companion-dx-2026","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"1RVz-_1xDFkVcg3zDw9KJ"}
+:HL["/biomed-portfolio-demo/bioevent/_next/static/chunks/1_8d_jk0kp4tb.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"activities","param":null,"prefetchHints":0,"slots":{"children":{"name":"id","param":{"type":"d","key":"act-companion-dx-2026","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"tsrSt335T8Feiy3rVrbOZ"}

@@ -213,7 +213,7 @@ function EntryCard({ title, body, href, cta }: { title: string; body: string; hr
 
 function HeroBackdrop() {
   const heroStyle = {
-    "--bioevent-hero-image": `url("${assetUrl("/images/bioevent-hero-intelligence.png")}")`,
+    "--bioevent-hero-image": `url("${assetUrl("/images/bioevent-hero-intelligence-lite.jpg")}")`,
   } as CSSProperties;
 
   return (

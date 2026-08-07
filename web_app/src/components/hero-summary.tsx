@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Database, GitMerge, Newspaper, RefreshCcw } from "lucide-react";
 import { getSourceStats } from "@/lib/data";
-import { assetUrl, withBasePath } from "@/lib/paths";
+import { assetUrl } from "@/lib/paths";
 import { SnapshotBanner } from "./snapshot-banner";
 
 export function HeroSummary() {
@@ -37,7 +37,7 @@ export function HeroSummary() {
             <div className="grid gap-5">
               <div className="relative h-[300px] overflow-hidden bg-zinc-100 md:h-[380px] lg:h-[470px]">
                 <Image
-                  src={assetUrl("/images/cover-adc.png")}
+                  src={assetUrl("/images/cover-adc-lite.jpg")}
                   alt="生物医疗行业会议现场"
                   fill
                   className="object-cover"
@@ -51,7 +51,7 @@ export function HeroSummary() {
                 <SourceLine code="RSS-009" title="沙龙延期" meta="RSS · 07/25" />
               </div>
               <Link
-                href={withBasePath("/calendar")}
+                href="/calendar"
                 className="inline-flex items-center gap-3 text-sm font-semibold tracking-wide text-teal-700 hover:text-teal-900"
               >
                 查看活动日程排期
@@ -101,7 +101,6 @@ function SourceLine({
 }
 
 function Metric({
-  icon,
   label,
   value,
 }: {
@@ -111,15 +110,10 @@ function Metric({
 }) {
   return (
     <div className="border-r border-zinc-200 py-5 last:border-r-0 md:py-6">
-      <div className="flex items-center gap-3 px-3 md:px-6">
-        <div className="inline-flex size-9 items-center justify-center rounded-full bg-teal-50 text-teal-700">
-          {icon}
-        </div>
-        <div>
-          <div className="text-2xl font-semibold text-zinc-950">{value}</div>
-          <div className="mt-0.5 text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">
-            {label}
-          </div>
+      <div className="px-4 md:px-8">
+        <div className="mono-date text-3xl font-semibold leading-none text-zinc-950">{value}</div>
+        <div className="mt-2 text-sm font-medium text-zinc-500">
+          {label}
         </div>
       </div>
     </div>

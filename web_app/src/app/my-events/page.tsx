@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { Bookmark } from "lucide-react";
 import { activities } from "@/data/fixtures";
 import { workTagLabels } from "@/data/labels";
@@ -8,6 +9,7 @@ import type { WorkTag } from "@/data/types";
 import { useAuth } from "@/auth/auth-provider";
 import { useAppState } from "@/components/app-shell";
 import { EventCard } from "@/components/event-card";
+import { ListPagination } from "@/components/list-pagination";
 import { SnapshotBanner } from "@/components/snapshot-banner";
 import { formatDate, getActivity } from "@/lib/data";
 
@@ -16,11 +18,16 @@ const tagOptions = Object.keys(workTagLabels) as WorkTag[];
 export default function MyEventsPage() {
   const auth = useAuth();
   const { savedActivities, toggleSaved, updateSavedTag, updateSavedNote, requestLogin } = useAppState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 4;
   const savedWithActivities = savedActivities
     .map((saved) => ({ saved, activity: getActivity(saved.activityId) }))
     .filter((item): item is { saved: typeof savedActivities[number]; activity: NonNullable<ReturnType<typeof getActivity>> } =>
       Boolean(item.activity),
     );
+  const pageCount = Math.max(1, Math.ceil(savedWithActivities.length / pageSize));
+  const safeCurrentPage = Math.min(currentPage, pageCount);
+  const pagedSavedActivities = savedWithActivities.slice((safeCurrentPage - 1) * pageSize, safeCurrentPage * pageSize);
   const recommended = activities
     .filter((activity) => !savedActivities.some((saved) => saved.activityId === activity.id))
     .filter((activity) => activity.status === "upcoming")
@@ -84,7 +91,7 @@ export default function MyEventsPage() {
           </div>
         ) : (
           <div className="grid gap-4">
-            {savedWithActivities.map(({ saved, activity }) => (
+            {pagedSavedActivities.map(({ saved, activity }) => (
               <div key={activity.id} className="grid gap-3 rounded-lg border border-zinc-200 bg-white p-4 shadow-sm lg:grid-cols-[1fr_320px]">
                 <EventCard
                   activity={activity}
@@ -126,6 +133,12 @@ export default function MyEventsPage() {
                 </div>
               </div>
             ))}
+            <ListPagination
+              total={savedWithActivities.length}
+              pageSize={pageSize}
+              currentPage={safeCurrentPage}
+              onPageChange={setCurrentPage}
+            />
           </div>
         )}
       </div>

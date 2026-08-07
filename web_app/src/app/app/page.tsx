@@ -1,15 +1,22 @@
 "use client";
 
+import { useState } from "react";
 import { activities } from "@/data/fixtures";
 import { EventCard, FeaturedEventCard } from "@/components/event-card";
 import { FiltersPanel } from "@/components/filters-panel";
 import { HeroSummary } from "@/components/hero-summary";
 import { useAppState } from "@/components/app-shell";
+import { ListPagination } from "@/components/list-pagination";
 import { filterActivities } from "@/lib/data";
 
 export default function ActivityDiscoveryPage() {
   const { filters, setFilters, resetFilters, savedActivities, toggleSaved } = useAppState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 5;
   const filtered = filterActivities(filters);
+  const pageCount = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const safeCurrentPage = Math.min(currentPage, pageCount);
+  const pagedActivities = filtered.slice((safeCurrentPage - 1) * pageSize, safeCurrentPage * pageSize);
   const featured = activities
     .filter((activity) => activity.featured)
     .sort((a, b) => b.lastVerifiedAt.localeCompare(a.lastVerifiedAt))
@@ -23,13 +30,19 @@ export default function ActivityDiscoveryPage() {
           <section id="activity-search" className="scroll-mt-28 grid gap-6">
             <FiltersPanel
               filters={filters}
-              setFilters={setFilters}
-              onReset={resetFilters}
+              setFilters={(nextFilters) => {
+                setCurrentPage(1);
+                setFilters(nextFilters);
+              }}
+              onReset={() => {
+                setCurrentPage(1);
+                resetFilters();
+              }}
               count={filtered.length}
             />
             {filtered.length > 0 ? (
-              <div className="border-b border-zinc-200">
-                {filtered.map((activity) => (
+              <div className="overflow-hidden border-b border-zinc-200">
+                {pagedActivities.map((activity) => (
                   <EventCard
                     key={activity.id}
                     activity={activity}
@@ -37,6 +50,12 @@ export default function ActivityDiscoveryPage() {
                     onToggleSaved={toggleSaved}
                   />
                 ))}
+                <ListPagination
+                  total={filtered.length}
+                  pageSize={pageSize}
+                  currentPage={safeCurrentPage}
+                  onPageChange={setCurrentPage}
+                />
               </div>
             ) : (
               <div className="border-y border-zinc-200 bg-white py-12 text-center">

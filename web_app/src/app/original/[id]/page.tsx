@@ -6,7 +6,7 @@ import { ActivityStatusBadge, RegistrationBadge } from "@/components/status-badg
 import { formatLabels } from "@/data/labels";
 import { activities } from "@/data/fixtures";
 import { formatDate, getActivity, getOrganizer } from "@/lib/data";
-import { assetUrl, withBasePath } from "@/lib/paths";
+import { assetUrl } from "@/lib/paths";
 
 export function generateStaticParams() {
   return activities.map((activity) => ({ id: activity.id }));
@@ -39,7 +39,7 @@ export default async function OriginalPreviewPage({
           </div>
           <div className="p-8 md:p-12">
             <Link
-              href={withBasePath(`/activities/${activity.id}`)}
+              href={`/activities/${activity.id}`}
               className="inline-flex items-center gap-2 text-sm font-medium text-teal-700 hover:text-teal-900"
             >
               <ArrowLeft className="size-4" />

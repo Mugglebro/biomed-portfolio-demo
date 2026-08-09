@@ -1,0 +1,8 @@
+node_modules/
+.vercel/
+.edge-headless-*/
+output/
+*.png
+.env
+.env.*
+!.env.example

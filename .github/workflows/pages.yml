@@ -44,8 +44,18 @@ jobs:
       - name: Assemble Pages artifact
         shell: bash
         run: |
-          mkdir -p site/med-desk site/bioevent
+          mkdir -p site/med-desk site/bioevent site/personal
           rsync -a --exclude='.git' --exclude='.github' --exclude='output' public_demo/ site/med-desk/
+          rsync -a \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='node_modules' \
+            --exclude='output' \
+            --exclude='test' \
+            --exclude='api' \
+            --exclude='.edge-headless-*' \
+            --exclude='*.png' \
+            personal_site/ site/personal/
           cp -R web_app/out/. site/bioevent/
           cp pages-home/index.html site/index.html
           touch site/.nojekyll

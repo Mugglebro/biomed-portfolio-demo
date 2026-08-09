@@ -1,0 +1,11 @@
+{
+  "name": "gaozhongqiang-portfolio-contact",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "node --test --test-isolation=none"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1"
+  }
+}

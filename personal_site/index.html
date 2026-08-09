@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="郜中强的个人作品集，展示行业研究、数据分析、运营实践、AI 工具应用，以及医药情报工作台和 BioEvent Intelligence 项目。"
+    />
+    <title>郜中强｜个人作品集</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到正文</a>
+
+    <div class="welcome-screen" id="welcomeScreen" aria-label="欢迎进入个人页面">
+      <p>您好，欢迎进入我的个人页面，同时希望您每天开心</p>
+    </div>
+
+    <div class="global-video-bg" aria-hidden="true">
+      <video autoplay muted loop playsinline preload="auto">
+        <source src="./assets/hero-background.mp4" type="video/mp4" />
+      </video>
+      <div class="global-video-overlay"></div>
+    </div>
+
+    <header class="site-header" id="siteHeader">
+      <a class="brand" href="#top" aria-label="返回首页">郜中强</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navLinks">
+        菜单
+      </button>
+      <nav class="nav-links" id="navLinks" aria-label="页面导航">
+        <a href="#top" data-section="top">首页</a>
+        <a href="#education" data-section="education">教育</a>
+        <a href="#experience" data-section="experience">校园与实习</a>
+        <a href="#works" data-section="works">作品</a>
+        <a href="#skills" data-section="skills">专业能力</a>
+        <a href="#contact" data-section="contact">联系</a>
+      </nav>
+      <a class="nav-resume" href="./assets/resume-gao-zhongqiang.docx" download>下载简历</a>
+    </header>
+
+    <main id="main">
+      <section class="hero section-anchor" id="top">
+        <div class="hero-inner">
+          <div class="hero-copy reveal-left">
+            <p class="hero-lead">
+              上海大学管理科学与工程硕士在读，具备数据分析、行业研究与产品运营实践经验。关注 AI 工具在业务流程中的应用，能够从问题分析、需求拆解到产品验证，将复杂业务场景转化为可落地的解决方案。
+            </p>
+            <div class="hero-actions">
+              <a class="button primary" href="#works">查看作品</a>
+              <a class="button secondary" href="#experience">查看经历</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section education-section section-anchor" id="education">
+        <div class="section-title reveal">
+          <h2>教育背景</h2>
+        </div>
+        <div class="education-flow reveal">
+          <article>
+            <time>2024.09 - 2027.03</time>
+            <div>
+              <h3>上海大学｜管理科学与工程硕士</h3>
+              <p>
+                在研究生阶段，通过管理科学、数据分析和商业智能等领域的学习，有效培养了我从业务目标、数据特征和实际约束出发理解问题，并寻找更有效的解决方案的能力，并逐步建立了系统分析和数据驱动决策的思考方式。
+              </p>
+            </div>
+          </article>
+          <article>
+            <time>2020.09 - 2024.06</time>
+            <div>
+              <h3>安徽财经大学｜信息管理与信息系统 / 金融工程</h3>
+              <p>
+                本科阶段，通过信息管理与信息系统和金融工程两个专业的交叉学习，逐渐建立了连接业务、数据与技术的复合视角。这样的学习经历帮助我理解不同业务场景中的信息流转、数据分析和决策过程，也为后续的研究和产品实践打下基础。
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section experience-section section-anchor" id="experience">
+        <div class="section-title reveal">
+          <h2>校园与实习经历</h2>
+        </div>
+
+        <div class="axis-wrap reveal">
+          <div class="experience-axis" role="tablist" aria-label="经历时间轴">
+            <button class="axis-point active" type="button" data-timeline="carbon" role="tab" aria-selected="true">
+              <span class="axis-dot"></span>
+              <time>2025.06 - 2026.04</time>
+              <strong>碳价预测研究</strong>
+            </button>
+            <button class="axis-point" type="button" data-timeline="tongji" role="tab" aria-selected="false">
+              <span class="axis-dot"></span>
+              <time>2026.03 - 2026.05</time>
+              <strong>同济工程咨询</strong>
+            </button>
+            <button class="axis-point" type="button" data-timeline="yanyin" role="tab" aria-selected="false">
+              <span class="axis-dot"></span>
+              <time>2026.05 - 2026.08</time>
+              <strong>衍因科技</strong>
+            </button>
+          </div>
+
+          <article class="axis-detail" id="timelinePanel" aria-live="polite">
+            <p class="panel-time" id="timelineTime">2025.06 - 2026.04</p>
+            <h3 id="timelineTitle">基于 CEEMDAN 分解与鲁棒集成学习的碳价预测框架</h3>
+            <p id="timelineSummary">
+              围绕区域碳市场价格预测搭建完整数据分析流程，整合碳价、宏观、能源和金融市场数据，完成数据清洗、变量分析、模型比较和策略效果评估。
+            </p>
+            <div class="timeline-points" id="timelinePoints">
+              <span>多源数据清洗与时间对齐</span>
+              <span>碳价影响因素拆解</span>
+              <span>预测模型对比与复盘</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section works-section section-anchor" id="works">
+        <div class="section-title reveal">
+          <h2>作品展示</h2>
+        </div>
+
+        <div class="project-list">
+          <article class="project-item reveal">
+            <a
+              class="project-scene"
+              href="https://mugglebro.github.io/biomed-portfolio-demo/med-desk/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="打开医药情报工作台"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=82"
+                alt="团队在会议室梳理信息和工作流程"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+            <div class="project-copy">
+              <h3>医药情报工作台</h3>
+              <p>
+                面向生物医药行业的信息采集与筛选场景，针对资讯来源分散、人工检索和核验效率低的问题，搭建统一的行业情报工作台。项目覆盖需求拆解、流程设计、产品原型和 MVP 落地，并结合 Codex、Claude Code 完成快速开发与多轮迭代。
+              </p>
+              <div class="project-meta">
+                <span>3 周 MVP</span>
+                <span>4 轮迭代</span>
+                <span>1,000+ 资讯处理</span>
+              </div>
+              <a
+                class="project-link"
+                href="https://mugglebro.github.io/biomed-portfolio-demo/med-desk/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >查看在线演示</a>
+            </div>
+          </article>
+
+          <article class="project-item reverse reveal">
+            <a
+              class="project-scene"
+              href="https://mugglebro.github.io/biomed-portfolio-demo/bioevent/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="打开 BioEvent Intelligence"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=78"
+                alt="生物医药行业会议现场与听众"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+            <div class="project-copy">
+              <h3>BioEvent Intelligence</h3>
+              <p>
+                面向生物医药会议与活动信息管理场景，解决多来源信息分散、重复以及时间地点变更难追踪的问题。通过会议采集、来源追溯、信息合并和变更确认等流程，将原本零散的信息整理为可持续维护的会议情报产品。
+              </p>
+              <div class="project-meta">
+                <span>2.5 周 MVP</span>
+                <span>3 轮迭代</span>
+                <span>450+ 会议与活动</span>
+              </div>
+              <a
+                class="project-link"
+                href="https://mugglebro.github.io/biomed-portfolio-demo/bioevent/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >查看在线演示</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section skills-section section-anchor" id="skills">
+        <div class="workflow-intro reveal">
+          <h2>专业能力</h2>
+          <p>围绕行业研究、产品原型、AI 快速验证和运营复盘，形成从问题识别到方案落地的复合能力。</p>
+        </div>
+
+        <div class="workflow-wrap reveal">
+          <div class="workflow-orbit" aria-label="产品工作流闭环">
+            <svg class="workflow-wheel" viewBox="0 0 640 640" aria-hidden="true">
+              <circle class="workflow-guide outer" cx="320" cy="320" r="252"></circle>
+              <circle class="workflow-guide inner" cx="320" cy="320" r="174"></circle>
+              <path class="workflow-arc active" data-workflow-arc="business" d="M 153.8 153.8 A 235 235 0 0 1 486.2 153.8"></path>
+              <path class="workflow-arc" data-workflow-arc="design" d="M 486.2 153.8 A 235 235 0 0 1 486.2 486.2"></path>
+              <path class="workflow-arc" data-workflow-arc="ai" d="M 486.2 486.2 A 235 235 0 0 1 153.8 486.2"></path>
+              <path class="workflow-arc" data-workflow-arc="data" d="M 153.8 486.2 A 235 235 0 0 1 153.8 153.8"></path>
+              <circle class="workflow-marker" cx="320" cy="85" r="9"></circle>
+            </svg>
+            <button class="workflow-node business active" type="button" data-workflow="business" aria-selected="true">
+              <span class="node-index">01</span>
+              <span class="node-name">业务理解</span>
+              <span class="node-keywords">需求分析 / 行业调研 / 场景梳理</span>
+            </button>
+            <button class="workflow-node design" type="button" data-workflow="design" aria-selected="false">
+              <span class="node-index">02</span>
+              <span class="node-name">产品设计</span>
+              <span class="node-keywords">流程设计 / 产品原型 / PRD 梳理</span>
+            </button>
+            <button class="workflow-node ai" type="button" data-workflow="ai" aria-selected="false">
+              <span class="node-index">03</span>
+              <span class="node-name">AI 快速验证</span>
+              <span class="node-keywords">MVP 验证 / AI 辅助开发 / 快速迭代</span>
+            </button>
+            <button class="workflow-node data" type="button" data-workflow="data" aria-selected="false">
+              <span class="node-index">04</span>
+              <span class="node-name">数据反馈</span>
+              <span class="node-keywords">用户反馈 / 数据分析 / 运营复盘</span>
+            </button>
+            <div class="workflow-center" aria-hidden="true">
+              <span id="workflowStep">01</span>
+              <strong id="workflowVerb">理解</strong>
+              <small id="workflowCaption">从场景到问题</small>
+            </div>
+          </div>
+
+          <article class="workflow-panel" id="workflowPanel" aria-live="polite">
+            <p class="workflow-panel-kicker" id="workflowKicker">阶段 01 / 04</p>
+            <h3 id="workflowTitle">业务理解</h3>
+            <p id="workflowSummary">
+              从行业场景和用户需求出发，理解业务目标和实际问题，明确产品需要解决的核心方向。
+            </p>
+            <div class="workflow-keyword-list" id="workflowKeywords">
+              <span>用户需求分析</span>
+              <span>行业调研</span>
+              <span>场景梳理</span>
+            </div>
+            <p class="workflow-practice" id="workflowPractice">
+              对应实践：生物医药行业用户运营、同济咨询项目研究、行业信息整理。
+            </p>
+            <div class="workflow-output">
+              <span>阶段产出</span>
+              <p id="workflowOutput">明确问题边界与需求优先级</p>
+            </div>
+            <div class="workflow-progress" aria-hidden="true"><span></span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="contact-section section-anchor" id="contact">
+        <div class="contact-copy reveal-left">
+          <h2>联系我</h2>
+          <p class="contact-lead">
+            欢迎与我交流行业研究、产品运营、AI 工具应用或实习/岗位机会。你可以直接通过邮箱或电话联系我，我会尽快回复。
+          </p>
+          <dl>
+            <div>
+              <dt>邮箱</dt>
+              <dd id="emailText">15956827532@163.com</dd>
+            </div>
+            <div>
+              <dt>联系方式</dt>
+              <dd id="contactNumber">15956827532</dd>
+            </div>
+            <div>
+              <dt>城市</dt>
+              <dd>上海</dd>
+            </div>
+          </dl>
+          <div class="contact-actions">
+            <button class="button secondary" id="copyEmailBtn" type="button">复制邮箱</button>
+            <button class="button secondary" id="copyContactBtn" type="button">复制联系方式</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a href="#top">返回顶部</a>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
